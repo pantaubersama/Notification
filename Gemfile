@@ -47,6 +47,9 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
+###doc [4] set up faker
+gem 'faker'
+
 group :test do
   ###doc [2] set up factory_girl
   # DEPRECATION gem 'factory_girl_rails'
@@ -55,11 +58,10 @@ group :test do
   ###doc [3] set up shoulda_matchers
   gem 'shoulda-matchers', '~> 3.1'
 
-  ###doc [4] set up faker
-  gem 'faker'
-
   ###doc [5] set up database_cleaner
   gem 'database_cleaner'
+
+  gem 'bullet'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -90,5 +92,18 @@ gem 'rack-cors'
 ###doc [9] paginator
 # Then choose your preferred paginator from the following:
 gem 'kaminari'
+gem 'pagy'
 # Finally...
 gem 'api-pagination'
+
+###doc [10] Harry's Data Migrations are a way to manage changes to seed data in a rails app in a similar way to how schema migrations are handled.
+# rake seed_migration:install:migrations
+# rake db:migrate
+#
+# rails g seed_migration AddFoo
+# rake seed:migrate
+gem 'seed_migration'
+
+# logger
+gem 'wirble'
+gem 'awesome_print', require: 'ap'

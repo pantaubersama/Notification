@@ -76,6 +76,16 @@ RSpec.configure do |config|
       FileUtils.rm_rf(Dir["#{Rails.root}/public/uploads"])
     end
   end
+  if Bullet.enable?
+    config.before(:each) do
+      Bullet.start_request
+    end
+
+    config.after(:each) do
+      Bullet.perform_out_of_channel_notifications if Bullet.notification?
+      Bullet.end_request
+    end
+  end
 end
 
 # configure shoulda matchers to use rspec as the test framework and full matcher libraries for rails
