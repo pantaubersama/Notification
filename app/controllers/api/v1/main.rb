@@ -5,6 +5,9 @@ module API
       # Default Config API
       include API::V1::Config
 
+      # Exception Handlers
+      include API::V1::ExceptionHandlers
+
       # Mounting Modules Api
       mount API::V1::Adventures::Routes
 
@@ -14,7 +17,12 @@ module API
           doc_version:             'v1',
           hide_documentation_path: true,
           mount_path:              "doc/api",
-          hide_format:             true
+          hide_format:             true,
+          info: {
+              title: "Pokemon API",
+              description: "Boilerplate API"
+          }
+
       )
     end
   end
