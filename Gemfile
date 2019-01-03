@@ -50,11 +50,11 @@ end
 ###doc [4] set up faker
 gem 'faker'
 
-group :test do
-  ###doc [2] set up factory_girl
-  # DEPRECATION gem 'factory_girl_rails'
-  gem 'factory_bot_rails', '~> 4.0'
+###doc [2] set up factory_girl
+# DEPRECATION gem 'factory_girl_rails'
+gem 'factory_bot_rails', '~> 4.0'
 
+group :test do
   ###doc [3] set up shoulda_matchers
   gem 'shoulda-matchers', '~> 3.1'
 
