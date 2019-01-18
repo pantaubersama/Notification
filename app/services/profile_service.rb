@@ -1,12 +1,12 @@
 class ProfileService < NotifApplicationService
-  def when_gagal_verifikasi(receiver)
+  def when_gagal_verifikasi(receiver_id)
     # - Jika gagal verifikasi
     #   - [dikirimkan ke user yang melakukan verifikasi]
     #       title: Pantau Pemilu
     #       body: Uups, akun kamu gagal melakukan verifikasi. Mohon coba lagi ya! Atau lebih lanjut hubungi Rumah Pantau di contact@pantaubersama.com
     #   - { paylod_type: "profile", event_type: "gagal_verifikasi" }
 
-    reg_ids = registration_ids(receiver.id)
+    reg_ids = registration_ids(receiver_id)
     if reg_ids.present?
       data          = {
       }
@@ -19,14 +19,14 @@ class ProfileService < NotifApplicationService
     end
   end
 
-  def when_berhasil_verifikasi(receiver)
+  def when_berhasil_verifikasi(receiver_id)
     # - Jika berhasil verifikasi
     #   - [dikirimkan ke user yang melakukan verifikasi]
     #       title: Pantau Pemilu
     #       body: Yeay! Selamat, akun kamu berhasil terverifikasi. Mari mulai menjaga Indonesia dengan mulai berpartisipasi dalam demokrasi
     #   - { paylod_type: "profile", event_type: "berhasil_verifikasi" }
 
-    reg_ids = registration_ids(receiver.id)
+    reg_ids = registration_ids(receiver_id)
     if reg_ids.present?
       data          = {
       }
@@ -39,14 +39,15 @@ class ProfileService < NotifApplicationService
     end
   end
 
-  def when_request_claster_approved(receiver, cluster)
+  def when_request_claster_approved(receiver_id, cluster_id)
     # - Jika Request cluster diterima anda menjadi admin
     #   - [dikirimkan ke user yang mengirimkan request]
     #       title: Pantau Pemilu
     #       body: Selamat! Permintaan cluster <cluster_name> diterima. Sekarang kamu adalah admin cluster <cluster_name>
     #   - { paylod_type: "profile", event_type: "request_claster_approved" }
 
-    reg_ids = registration_ids(receiver.id)
+    cluster = Cluster.find(cluster_id)
+    reg_ids = registration_ids(receiver_id)
     if reg_ids.present?
       data          = {
       }
@@ -59,14 +60,14 @@ class ProfileService < NotifApplicationService
     end
   end
 
-  def when_request_claster_rejected(receiver, cluster)
+  def when_request_claster_rejected(receiver_id)
     # - Jika Request cluster ditolak
     #   - [dikirimkan ke user yang mengirimkan request]
     #       title: Pantau Pemilu
     #       body: Yah! Maaf, permintaan kamu untuk menjadi admin kali ini belum bisa dipenuhi. Tetap semangat dan terus berpartisipasi :)
     #   - { paylod_type: "profile", event_type: "request_claster_rejected" }
 
-    reg_ids = registration_ids(receiver.id)
+    reg_ids = registration_ids(receiver_id)
     if reg_ids.present?
       data          = {
       }
@@ -79,14 +80,16 @@ class ProfileService < NotifApplicationService
     end
   end
 
-  def when_invited_to_claster(user_action, receiver, cluster)
+  def when_invited_to_claster(user_action_id, receiver_id, cluster_id)
     # - Jikadi invite ke dalam cluster
     #   - [dikirimkan ke user yang di invite]
     #       title: Pantau Pemilu
     #       body: Kamu telah dimasukkan di cluster <cluster_name> oleh <user_name>. Selamat berpartisipasi!
     #   - { paylod_type: "profile", event_type: "cluster_invited" }
 
-    reg_ids = registration_ids(receiver.id)
+    user_action = User.find(user_action_id)
+    cluster     = Cluster.find(cluster_id)
+    reg_ids     = registration_ids(receiver_id)
     if reg_ids.present?
       data          = {
       }
