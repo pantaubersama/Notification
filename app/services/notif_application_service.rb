@@ -1,32 +1,32 @@
 class NotifApplicationService
   attr_accessor :resource, :notification
 
-  def initialize(resource)
+  def initialize(resource = nil)
     @resource     = resource
     @notification = {
       notification: {
-        title: "[Pantau] Title belum di tambahkan",
+        title: "Pantau Bersama",
         body:  "[Pantau] Body belum di tambahkan"
       }
     }
   end
 
-  def push(notif_type = "", event_type = "", registration_ids = {}, data = {})
-    if registration_ids[:android].present?
+  def push(notif_type = "", event_type = "", registration_ids = { "android" => [], "ios" => [] }, data = {})
+    if registration_ids["android"].present?
       build_android_paylod(notif_type, event_type, registration_ids, data)
     end
-    if registration_ids[:android].present?
+    if registration_ids["ios"].present?
       build_ios_paylod(notif_type, event_type, registration_ids, data)
     end
   end
 
   def registration_ids(user_ids)
-    user_ids = Array.new(user_ids).flatten
+    uids = [user_ids].flatten
+    fk   = []
     if user_ids.present?
-      DeviceRegistration.where(user_id: user_ids).group_by_device_type
-    else
-      []
+      fk = FirebaseKey.where(user_id: uids).group_by_key_type
     end
+    fk
   end
 
   private
@@ -34,7 +34,7 @@ class NotifApplicationService
   def build_android_paylod(notif_type, event_type, registration_ids, data)
     results = { content_available: true }
     if registration_ids["android"].present?
-      results = results.merge({ registration_ids: registration_ids["android"].pluck(:device_token) })
+      results = results.merge({ registration_ids: registration_ids["android"].pluck(:content) })
     end
     if data.present?
       results = results.merge({ data: { notif_type: notif_type, event_type: event_type, payload: data } })
@@ -49,7 +49,7 @@ class NotifApplicationService
   def build_ios_paylod(notif_type, event_type, registration_ids, data)
     results = { content_available: true }.merge(@notification)
     if registration_ids["ios"].present?
-      results = results.merge({ registration_ids: registration_ids["ios"].pluck(:device_token) })
+      results = results.merge({ registration_ids: registration_ids["ios"].pluck(:content) })
     end
     if data.present?
       results = results.merge({ data: { notif_type: notif_type, event_type: event_type, payload: data } })
