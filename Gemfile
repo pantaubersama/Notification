@@ -107,3 +107,10 @@ gem 'seed_migration'
 # logger
 gem 'wirble'
 gem 'awesome_print', require: 'ap'
+
+# push
+gem 'andpush'
+gem 'curb'
+
+# jobs
+gem 'sidekiq'
