@@ -3,14 +3,14 @@ class ProfileService < NotifApplicationService
     # - Jika gagal verifikasi
     #   - [dikirimkan ke user yang melakukan verifikasi]
     #       title: Pantau Pemilu
-    #       body: Uups, akun kamu gagal melakukan verifikasi. Mohon coba lagi ya! Atau lebih lanjut hubungi Rumah Pantau di contact@pantaubersama.com
+    #       body: Ups, akun kamu gagal melakukan verifikasi. Mohon coba lagi ya! Atau lebih lanjut hubungi Rumah Pantau di contact@pantaubersama.com
     #   - { paylod_type: "profile", event_type: "gagal_verifikasi" }
 
     reg_ids = registration_ids(receiver_id)
     if reg_ids.present?
       data          = {
       }
-      body          = "Uups, akun kamu gagal melakukan verifikasi. Mohon coba lagi ya! Atau lebih lanjut hubungi Rumah Pantau di contact@pantaubersama.com"
+      body          = "Ups, akun kamu gagal melakukan verifikasi. Mohon coba lagi ya! Atau lebih lanjut hubungi Rumah Pantau di contact@pantaubersama.com"
       @notification = { notification: {
         title: "Pantau Pemilu",
         body:  body
@@ -23,14 +23,14 @@ class ProfileService < NotifApplicationService
     # - Jika berhasil verifikasi
     #   - [dikirimkan ke user yang melakukan verifikasi]
     #       title: Pantau Pemilu
-    #       body: Yeay! Selamat, akun kamu berhasil terverifikasi. Mari mulai menjaga Indonesia dengan mulai berpartisipasi dalam demokrasi
+    #       body: Yeay! Akun kamu berhasil terverifikasi. Yuk mulai rayakan partisipasi pesta demokrasi.
     #   - { paylod_type: "profile", event_type: "berhasil_verifikasi" }
 
     reg_ids = registration_ids(receiver_id)
     if reg_ids.present?
       data          = {
       }
-      body          = "Yeay! Selamat, akun kamu berhasil terverifikasi. Mari mulai menjaga Indonesia dengan mulai berpartisipasi dalam demokrasi"
+      body          = "Yeay! Akun kamu berhasil terverifikasi. Yuk mulai rayakan partisipasi pesta demokrasi."
       @notification = { notification: {
         title: "Pantau Pemilu",
         body:  body
@@ -43,7 +43,7 @@ class ProfileService < NotifApplicationService
     # - Jika Request cluster diterima anda menjadi admin
     #   - [dikirimkan ke user yang mengirimkan request]
     #       title: Pantau Pemilu
-    #       body: Selamat! Permintaan cluster <cluster_name> diterima. Sekarang kamu adalah admin cluster <cluster_name>
+    #       body: Selamat! Permintaan Cluster  <cluster_name> sudah diterima. Sekarang kamu adalah admin cluster <cluster_name>.
     #   - { paylod_type: "profile", event_type: "request_claster_approved" }
 
     cluster = Cluster.find(cluster_id)
@@ -51,7 +51,7 @@ class ProfileService < NotifApplicationService
     if reg_ids.present?
       data          = {
       }
-      body          = "Selamat! Permintaan cluster #{cluster.name} diterima. Sekarang kamu adalah admin cluster  #{cluster.name}"
+      body          = "Selamat! Permintaan Cluster #{cluster.name} sudah diterima. Sekarang kamu adalah admin cluster #{cluster.name}."
       @notification = { notification: {
         title: "Pantau Pemilu",
         body:  body
