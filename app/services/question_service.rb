@@ -1,10 +1,10 @@
-class TanyaService < NotifApplicationService
+class QuestionService < NotifApplicationService
   def when_upvote_repot(receiver_id, count)
     # - Jika ada sudah mendapatkan <count> kali upvote
     #   - [dikirimkan ke user yang bersangkutan]
     #       title: Pantau Pemilu
     #       body: Hore! partisipasimu dalam tanya diupvote <count> kali
-    #   - { paylod_type: "tanya", event_type: "upvote_repot" }
+    #   - { notif_type: "question", event_type: "upvote_repot" }
 
     reg_ids = registration_ids(receiver_id)
     if reg_ids.present?
@@ -15,7 +15,7 @@ class TanyaService < NotifApplicationService
         title: "Pantau Pemilu",
         body:  body
       } }
-      push("tanya", "upvote_repot", reg_ids, data.merge(@notification), :single)
+      push("question", "upvote_repot", reg_ids, data.merge(@notification), :single)
     end
   end
 
@@ -24,7 +24,7 @@ class TanyaService < NotifApplicationService
     #   - [dikirimkan ke user yang bersangkutan]
     #       title: Pantau Pemilu
     #       body: Yup! Pertanyaan kamu mendapat Upvote dari <user_name>.
-    #   - { paylod_type: "tanya", event_type: "upvote" }
+    #   - { notif_type: "question", event_type: "upvote" }
 
     user_action = User.find(user_action_id)
     reg_ids = registration_ids(receiver_id)
@@ -36,7 +36,7 @@ class TanyaService < NotifApplicationService
         title: "Pantau Pemilu",
         body:  body
       } }
-      push("tanya", "upvote", reg_ids, data.merge(@notification), :single)
+      push("question", "upvote", reg_ids, data.merge(@notification), :single)
     end
   end
 end

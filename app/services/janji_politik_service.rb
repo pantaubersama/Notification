@@ -4,7 +4,7 @@ class JanjiPolitikService < NotifApplicationService
     #   - [dikirimkan ke semua user pantau]
     #       title: Pantau Pemilu
     #       body: Ada <count> Janji Politik baru. Simak, yuk!
-    #   - { paylod_type: "jani_politik", event_type: "report" }
+    #   - { notif_type: "janji_politik", event_type: "report" }
 
     reg_ids = registration_ids("all")
     if reg_ids.present?
@@ -15,7 +15,7 @@ class JanjiPolitikService < NotifApplicationService
         title: "Pantau Pemilu",
         body:  body
       } }
-      push("janji_politik", "janji_politik_report", reg_ids, data.merge(@notification), :multiple)
+      push("janji_politik", "report", reg_ids, data.merge(@notification), :multiple)
     end
   end
 end

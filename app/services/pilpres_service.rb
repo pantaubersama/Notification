@@ -4,7 +4,7 @@ class PilpresService < NotifApplicationService
     #   - [dikirimkan ke user]
     #       title: Pantau Pemilu
     #       body: <count> Tweet baru di Linimasa. Jangan ketinggalan informasinya!
-    #   - { paylod_type: "feed", event_type: "feed_report" }
+    #   - { notif_type: "feed", event_type: "feed_report" }
 
     reg_ids = registration_ids("all")
     if reg_ids.present?

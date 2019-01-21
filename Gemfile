@@ -122,4 +122,6 @@ gem 'andpush'
 gem 'curb'
 
 # jobs
-gem 'sidekiq'
+gem 'sneakers'
+gem 'json'
+gem 'redis'

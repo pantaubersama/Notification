@@ -9,7 +9,7 @@ module API
       include API::V1::ExceptionHandlers
 
       # Mounting Modules Api
-      mount API::V1::Adventures::Routes
+      # mount API::V1::Adventures::Routes
 
       # Swagger config
       add_swagger_documentation(

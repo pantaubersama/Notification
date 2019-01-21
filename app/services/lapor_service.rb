@@ -4,7 +4,7 @@ class LaporService < NotifApplicationService
   #   #   - [dikirimkan ke user yang bersangkutan]
   #   #       title: Pantau Pemilu
   #   #       body: <user_name> menyukai post laporan kamu dengan judul <laporan_title>.
-  #   #   - { paylod_type: "lapor", event_type: "liked" }
+  #   #   - { notif_type: "lapor", event_type: "liked" }
   #
   #   user_action = User.find(user_action_id)
   #   lapor       = Lapor.find(lapor_id)
@@ -26,7 +26,7 @@ class LaporService < NotifApplicationService
   #   #   - [dikirimkan ke user]
   #   #       title: Pantau Pemilu
   #   #       body: Psst! Laporan kamu _Lapor Surat Suara Rusak_ mendapat <count> likes!
-  #   #   - { paylod_type: "lapor", event_type: "liked_report" }
+  #   #   - { notif_type: "lapor", event_type: "liked_report" }
   #
   #   reg_ids = registration_ids(receiver_id)
   #   if reg_ids.present?
@@ -46,7 +46,7 @@ class LaporService < NotifApplicationService
   #   #   - [dikirimkan ke user]
   #   #       title: Pantau Pemilu
   #   #       body: <count> Komentar baru di pos Lapor kamu <lapor_title>
-  #   #   - { paylod_type: "lapor", event_type: "comment_report" }
+  #   #   - { notif_type: "lapor", event_type: "comment_report" }
   #
   #   lapor   = Lapor.find(lapor_id)
   #   reg_ids = registration_ids(receiver_id)
@@ -67,7 +67,7 @@ class LaporService < NotifApplicationService
   #   #   - [dikirimkan ke user]
   #   #       title: Pantau Pemilu
   #   #       body: _Rizki Sasmita_ memberikan komentar di pos Lapor _Judul Pos_: Komentar
-  #   #   - { paylod_type: "lapor", event_type: "commented" }
+  #   #   - { notif_type: "lapor", event_type: "commented" }
   #
   #   lapor       = Lapor.find(lapor_id)
   #   user_action = User.find(user_action_id)
@@ -90,7 +90,7 @@ class LaporService < NotifApplicationService
   #   #   - [dikirimkan ke user]
   #   #       title: Pantau Pemilu
   #   #       body: <user_name> menambahkan data pendukung di pos Lapor kamu.
-  #   #   - { paylod_type: "lapor", event_type: "liked_report" }
+  #   #   - { notif_type: "lapor", event_type: "liked_report" }
   #
   #   user_action = User.find(user_action_id)
   #   lapor       = Lapor.find(lapor_id)
@@ -112,7 +112,7 @@ class LaporService < NotifApplicationService
   #   #   - [dikirimkan ke user]
   #   #       title: Pantau Pemilu
   #   #       body: <user_name> menambahkan sidenote di pos Lapor kamu
-  #   #   - { paylod_type: "lapor", event_type: "ditambahkan_side_note" }
+  #   #   - { notif_type: "lapor", event_type: "ditambahkan_side_note" }
   #
   #   user_action = User.find(user_action_id)
   #   lapor       = Lapor.find(lapor_id)

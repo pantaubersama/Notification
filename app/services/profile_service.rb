@@ -4,7 +4,7 @@ class ProfileService < NotifApplicationService
     #   - [dikirimkan ke user yang melakukan verifikasi]
     #       title: Pantau Pemilu
     #       body: Ups, akun kamu gagal melakukan verifikasi. Mohon coba lagi ya! Atau lebih lanjut hubungi Rumah Pantau di contact@pantaubersama.com
-    #   - { paylod_type: "profile", event_type: "gagal_verifikasi" }
+    #   - { notif_type: "profile", event_type: "gagal_verifikasi" }
 
     reg_ids = registration_ids(receiver_id)
     if reg_ids.present?
@@ -24,7 +24,7 @@ class ProfileService < NotifApplicationService
     #   - [dikirimkan ke user yang melakukan verifikasi]
     #       title: Pantau Pemilu
     #       body: Yeay! Akun kamu berhasil terverifikasi. Yuk mulai rayakan partisipasi pesta demokrasi.
-    #   - { paylod_type: "profile", event_type: "berhasil_verifikasi" }
+    #   - { notif_type: "profile", event_type: "berhasil_verifikasi" }
 
     reg_ids = registration_ids(receiver_id)
     if reg_ids.present?
@@ -44,7 +44,7 @@ class ProfileService < NotifApplicationService
     #   - [dikirimkan ke user yang mengirimkan request]
     #       title: Pantau Pemilu
     #       body: Selamat! Permintaan Cluster  <cluster_name> sudah diterima. Sekarang kamu adalah admin cluster <cluster_name>.
-    #   - { paylod_type: "profile", event_type: "request_claster_approved" }
+    #   - { notif_type: "profile", event_type: "request_claster_approved" }
 
     cluster = Cluster.find(cluster_id)
     reg_ids = registration_ids(receiver_id)
@@ -65,7 +65,7 @@ class ProfileService < NotifApplicationService
     #   - [dikirimkan ke user yang mengirimkan request]
     #       title: Pantau Pemilu
     #       body: Yah! Maaf, permintaan kamu untuk menjadi admin kali ini belum bisa dipenuhi. Tetap semangat dan terus berpartisipasi :)
-    #   - { paylod_type: "profile", event_type: "request_claster_rejected" }
+    #   - { notif_type: "profile", event_type: "request_claster_rejected" }
 
     reg_ids = registration_ids(receiver_id)
     if reg_ids.present?
@@ -85,7 +85,7 @@ class ProfileService < NotifApplicationService
     #   - [dikirimkan ke user yang di invite]
     #       title: Pantau Pemilu
     #       body: Kamu telah dimasukkan di cluster <cluster_name> oleh <user_name>. Selamat berpartisipasi!
-    #   - { paylod_type: "profile", event_type: "cluster_invited" }
+    #   - { notif_type: "profile", event_type: "cluster_invited" }
 
     user_action = User.find(user_action_id)
     cluster     = Cluster.find(cluster_id)
@@ -107,7 +107,7 @@ class ProfileService < NotifApplicationService
     #   - [dikirimkan ke user yang mendapat badge]
     #       title: Pantau Pemilu
     #       body: Selamat! Kamu mendapat badge _Perunggu_ sebagai apresiasi partisipasi dalam Tanya.
-    #   - { paylod_type: "profile", event_type: "badge_tanya" }
+    #   - { notif_type: "profile", event_type: "badge_tanya" }
 
     reg_ids = registration_ids(receiver_id)
     if reg_ids.present?
@@ -127,7 +127,7 @@ class ProfileService < NotifApplicationService
     #   - [dikirimkan ke user yang mendapat badge]
     #       title: Pantau Pemilu
     #       body:  Selamat! Kamu mendapatkan badge _Perunggu_ atas partisipasimu dalam mengikuti kuis pantau.
-    #   - { paylod_type: "profile", event_type: "badge_kuis" }
+    #   - { notif_type: "profile", event_type: "badge_kuis" }
 
     reg_ids = registration_ids(receiver_id)
     if reg_ids.present?
@@ -147,7 +147,7 @@ class ProfileService < NotifApplicationService
     #   - [dikirimkan ke user yang mendapat badge]
     #       title: Pantau Pemilu
     #       body:  Selamat! Kamu mendapat badge _Emas_ untuk partisipasimu dalam Lapor!.
-    #   - { paylod_type: "profile", event_type: "badge_lapor" }
+    #   - { notif_type: "profile", event_type: "badge_lapor" }
 
     reg_ids = registration_ids(receiver_id)
     if reg_ids.present?
