@@ -25,7 +25,7 @@ set :sidekiq_service_name, "sidekiq_notif_#{fetch(:application)}_#{fetch(:sideki
 # set :sneakers_run_config, -> { true }
 # set :sneakers_workers, ["Your::Subscriber::Class"]
 
-server "52.77.101.168", user: "ubuntu", roles: %w{web db app}
+server "52.77.101.168", user: "ubuntu", roles: %w{web db}
 server "13.228.240.205", user: "ubuntu", roles: %w{app}
 
 set :ssh_options, {
