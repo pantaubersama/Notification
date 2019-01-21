@@ -15,7 +15,7 @@ class ProfileService < NotifApplicationService
         title: "Pantau Pemilu",
         body:  body
       } }
-      push("profile", "gagal_verifikasi", reg_ids, data.merge(@notification))
+      push("profile", "gagal_verifikasi", reg_ids, data.merge(@notification), :single)
     end
   end
 
@@ -35,12 +35,12 @@ class ProfileService < NotifApplicationService
         title: "Pantau Pemilu",
         body:  body
       } }
-      push("profile", "berhasil_verifikasi", reg_ids, data.merge(@notification))
+      push("profile", "berhasil_verifikasi", reg_ids, data.merge(@notification), :single)
     end
   end
 
-  def when_request_claster_approved(receiver_id, cluster_id)
-    # - Jika Request cluster diterima anda menjadi admin
+  def when_claster_approved(receiver_id, cluster_id)
+    # - Jika Request cluster diterima
     #   - [dikirimkan ke user yang mengirimkan request]
     #       title: Pantau Pemilu
     #       body: Selamat! Permintaan Cluster  <cluster_name> sudah diterima. Sekarang kamu adalah admin cluster <cluster_name>.
@@ -56,11 +56,11 @@ class ProfileService < NotifApplicationService
         title: "Pantau Pemilu",
         body:  body
       } }
-      push("profile", "request_claster_approved", reg_ids, data.merge(@notification))
+      push("profile", "claster_approved", reg_ids, data.merge(@notification), :single)
     end
   end
 
-  def when_request_claster_rejected(receiver_id)
+  def when_claster_rejected(receiver_id)
     # - Jika Request cluster ditolak
     #   - [dikirimkan ke user yang mengirimkan request]
     #       title: Pantau Pemilu
@@ -76,12 +76,12 @@ class ProfileService < NotifApplicationService
         title: "Pantau Pemilu",
         body:  body
       } }
-      push("profile", "request_claster_rejected", reg_ids, data.merge(@notification))
+      push("profile", "claster_rejected", reg_ids, data.merge(@notification), :single)
     end
   end
 
-  def when_invited_to_claster(user_action_id, receiver_id, cluster_id)
-    # - Jikadi invite ke dalam cluster
+  def when_invited_to_claster(receiver_id, user_action_id, cluster_id)
+    # - Jika di invite ke dalam cluster
     #   - [dikirimkan ke user yang di invite]
     #       title: Pantau Pemilu
     #       body: Kamu telah dimasukkan di cluster <cluster_name> oleh <user_name>. Selamat berpartisipasi!
@@ -93,12 +93,72 @@ class ProfileService < NotifApplicationService
     if reg_ids.present?
       data          = {
       }
-      body          = "Kamu telah dimasukkan di cluster #{cluster.name} oleh #{user_action.name}. Selamat berpartisipasi!"
+      body          = "Kamu telah dimasukkan di cluster #{cluster.name} oleh #{user_action.full_name}. Selamat berpartisipasi!"
       @notification = { notification: {
         title: "Pantau Pemilu",
         body:  body
       } }
-      push("profile", "cluster_invited", reg_ids, data.merge(@notification))
+      push("profile", "cluster_invited", reg_ids, data.merge(@notification), :single)
+    end
+  end
+
+  def when_receive_badge_tanya(receiver_id)
+    # - Jika  mendapat badge _Perunggu_ sebagai apresiasi partisipasi dalam Tanya
+    #   - [dikirimkan ke user yang mendapat badge]
+    #       title: Pantau Pemilu
+    #       body: Selamat! Kamu mendapat badge _Perunggu_ sebagai apresiasi partisipasi dalam Tanya.
+    #   - { paylod_type: "profile", event_type: "badge_tanya" }
+
+    reg_ids = registration_ids(receiver_id)
+    if reg_ids.present?
+      data          = {
+      }
+      body          = "Selamat! Kamu mendapat badge _Perunggu_ sebagai apresiasi partisipasi dalam Tanya."
+      @notification = { notification: {
+        title: "Pantau Pemilu",
+        body:  body
+      } }
+      push("profile", "badge_tanya", reg_ids, data.merge(@notification), :single)
+    end
+  end
+
+  def when_receive_badge_kuis(receiver_id)
+    # - Jika  mendapat badge _Perunggu_ sebagai apresiasi partisipasi dalam Kuis
+    #   - [dikirimkan ke user yang mendapat badge]
+    #       title: Pantau Pemilu
+    #       body:  Selamat! Kamu mendapatkan badge _Perunggu_ atas partisipasimu dalam mengikuti kuis pantau.
+    #   - { paylod_type: "profile", event_type: "badge_kuis" }
+
+    reg_ids = registration_ids(receiver_id)
+    if reg_ids.present?
+      data          = {
+      }
+      body          = "Selamat! Kamu mendapatkan badge _Perunggu_ atas partisipasimu dalam mengikuti kuis pantau."
+      @notification = { notification: {
+        title: "Pantau Pemilu",
+        body:  body
+      } }
+      push("profile", "badge_kuis", reg_ids, data.merge(@notification), :single)
+    end
+  end
+
+  def when_receive_badge_lapor(receiver_id)
+    # - Jika mendapat badge _Emas_ untuk partisipasimu dalam Lapor
+    #   - [dikirimkan ke user yang mendapat badge]
+    #       title: Pantau Pemilu
+    #       body:  Selamat! Kamu mendapat badge _Emas_ untuk partisipasimu dalam Lapor!.
+    #   - { paylod_type: "profile", event_type: "badge_lapor" }
+
+    reg_ids = registration_ids(receiver_id)
+    if reg_ids.present?
+      data          = {
+      }
+      body          = "Selamat! Kamu mendapat badge _Emas_ untuk partisipasimu dalam Lapor!"
+      @notification = { notification: {
+        title: "Pantau Pemilu",
+        body:  body
+      } }
+      push("profile", "badge_lapor", reg_ids, data.merge(@notification), :single)
     end
   end
 end
