@@ -13,7 +13,7 @@ class API::V1::Notifications::Resources::Notifications < API::V1::ApplicationRes
       requires :resources, type: Hash, coerce_with: JSON do
         requires :id, type: String, desc: "4074fd9f-4e67-4cfe-a4a3-a15f682121db"
         requires :type, type: String, desc: "Message"
-        requires :server, type: String, values: [:pemilu, :word_stadium, :auth]
+        requires :server, type: String, values: ["pemilu", "word_stadium", "auth"]
       end
     end
     get "multiple" do
