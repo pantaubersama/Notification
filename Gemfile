@@ -53,6 +53,7 @@ group :development do
   gem 'capistrano-rvm'
   gem 'capistrano-sidekiq'
   gem 'capistrano-sneakers'
+  
 end
 
 ###doc [4] set up faker

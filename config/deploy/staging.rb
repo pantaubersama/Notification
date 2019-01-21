@@ -9,7 +9,12 @@ set :branch, 'staging'
 set :rails_env, 'staging'
 set :unicorn_roles, :web
 set :whenever_roles, :app
+
+set :sidekiq_env, "staging"
 set :sidekiq_roles, :app
+set :sidekiq_monit_use_sudo, true
+set :sidekiq_monit_conf_file, "sidekiq_notif__#{fetch(:sidekiq_env)}.conf"
+set :sidekiq_service_name, "sidekiq_notif_#{fetch(:application)}_#{fetch(:sidekiq_env)}"
 
 # set :sneakers_default_hooks, true
 # set :sneakers_pid, File.join(shared_path, 'tmp', 'pids', 'sneakers.pid')
