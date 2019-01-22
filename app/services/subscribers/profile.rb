@@ -29,10 +29,10 @@ module Subscribers
       elsif params[:notif_type].eql?("profile") && params[:event_type].eql?("badge_lapor")
         ProfileService.new.when_receive_badge_lapor(params[:receiver_id], params[:badge_title])
 
-      elsif params[:notif_type].eql?("profile") && params[:event_type].eql?("janji_politik")
+      elsif params[:notif_type].eql?("profile") && params[:event_type].eql?("badge_janji_politik")
         ProfileService.when_receive_badge_janji_politik(params[:receiver_id], params[:badge_title])
 
-      elsif params[:notif_type].eql?("profile") && params[:event_type].eql?("tanya_interaksi")
+      elsif params[:notif_type].eql?("profile") && params[:event_type].eql?("badge_tanya_interaksi")
         ProfileService.when_receive_badge_tanya_interaksi(params[:receiver_id], params[:badge_title])
 
       elsif params[:notif_type].eql?("profile") && params[:event_type].eql?("badge_profile")
@@ -41,7 +41,7 @@ module Subscribers
       elsif params[:notif_type].eql?("profile") && params[:event_type].eql?("badge_relawan")
         ProfileService.when_receive_badge_relawan(params[:receiver_id], params[:badge_title])
 
-      elsif params[:notif_type].eql?("profile") && params[:event_type].eql?("pantau_bersama")
+      elsif params[:notif_type].eql?("profile") && params[:event_type].eql?("badge_pantau_bersama")
         logger.info "Badge pantau bersama ... #{params}"
         ProfileService.when_receive_badge_pantau_bersama(params[:receiver_id], params[:badge_title])
       end
