@@ -1,5 +1,6 @@
 module Subscribers
   class Pilpres < ApplicationSubscribe
+    include Sneakers::Worker
     from_queue "pemilu.pilpres", env: nil
 
     def work(params)

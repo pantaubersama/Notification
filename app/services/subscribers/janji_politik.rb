@@ -1,5 +1,6 @@
 module Subscribers
   class JanjiPolitik < ApplicationSubscribe
+    include Sneakers::Worker
     from_queue "pemilu.janji_politik", env: nil
 
     def work(params)

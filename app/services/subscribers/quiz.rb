@@ -1,5 +1,6 @@
 module Subscribers
   class Quiz < ApplicationSubscribe
+    include Sneakers::Worker
     from_queue "pemilu.quiz", env: nil
 
     def work(params)

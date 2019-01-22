@@ -1,5 +1,6 @@
 module Subscribers
   class Profile < ApplicationSubscribe
+    include Sneakers::Worker
     from_queue "pemilu.profile", env: nil
 
     def work(params)
