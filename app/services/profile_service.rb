@@ -102,7 +102,7 @@ class ProfileService < NotifApplicationService
     end
   end
 
-  def when_receive_badge_tanya(receiver_id)
+  def when_receive_badge_tanya(receiver_id, badge_title)
     # - Jika  mendapat badge _Perunggu_ sebagai apresiasi partisipasi dalam Tanya
     #   - [dikirimkan ke user yang mendapat badge]
     #       title: Pantau Pemilu
@@ -113,7 +113,7 @@ class ProfileService < NotifApplicationService
     if reg_ids.present?
       data          = {
       }
-      body          = "Selamat! Kamu mendapat badge _Perunggu_ sebagai apresiasi partisipasi dalam Tanya."
+      body          = "Selamat! Kamu mendapat badge #{badge_title} sebagai apresiasi partisipasi dalam Tanya."
       @notification = { notification: {
         title: "Pantau Pemilu",
         body:  body
@@ -122,7 +122,7 @@ class ProfileService < NotifApplicationService
     end
   end
 
-  def when_receive_badge_kuis(receiver_id)
+  def when_receive_badge_kuis(receiver_id, badge_title)
     # - Jika  mendapat badge _Perunggu_ sebagai apresiasi partisipasi dalam Kuis
     #   - [dikirimkan ke user yang mendapat badge]
     #       title: Pantau Pemilu
@@ -133,7 +133,7 @@ class ProfileService < NotifApplicationService
     if reg_ids.present?
       data          = {
       }
-      body          = "Selamat! Kamu mendapatkan badge _Perunggu_ atas partisipasimu dalam mengikuti kuis pantau."
+      body          = "Selamat! Kamu mendapatkan badge #{badge_title} atas partisipasimu dalam mengikuti kuis pantau."
       @notification = { notification: {
         title: "Pantau Pemilu",
         body:  body
@@ -142,7 +142,7 @@ class ProfileService < NotifApplicationService
     end
   end
 
-  def when_receive_badge_lapor(receiver_id)
+  def when_receive_badge_lapor(receiver_id, badge_title)
     # - Jika mendapat badge _Emas_ untuk partisipasimu dalam Lapor
     #   - [dikirimkan ke user yang mendapat badge]
     #       title: Pantau Pemilu
@@ -153,7 +153,107 @@ class ProfileService < NotifApplicationService
     if reg_ids.present?
       data          = {
       }
-      body          = "Selamat! Kamu mendapat badge _Emas_ untuk partisipasimu dalam Lapor!"
+      body          = "Selamat! Kamu mendapat badge #{badge_title} untuk partisipasimu dalam Lapor!"
+      @notification = { notification: {
+        title: "Pantau Pemilu",
+        body:  body
+      } }
+      push("profile", "badge_lapor", reg_ids, data.merge(@notification), :single)
+    end
+  end
+
+  def when_receive_badge_janji_politik(receiver_id, badge_title)
+    # - Jika mendapat badge _Emas_ untuk partisipasimu dalam Lapor
+    #   - [dikirimkan ke user yang mendapat badge]
+    #       title: Pantau Pemilu
+    #       body:  Selamat! Kamu mendapat badge _Emas_ untuk partisipasimu dalam Lapor!.
+    #   - { notif_type: "profile", event_type: "badge_lapor" }
+
+    reg_ids = registration_ids(receiver_id)
+    if reg_ids.present?
+      data          = {
+      }
+      body          = "Selamat! Kamu mendapat badge #{badge_title} untuk partisipasimu dalam Janji Politik!"
+      @notification = { notification: {
+        title: "Pantau Pemilu",
+        body:  body
+      } }
+      push("profile", "badge_lapor", reg_ids, data.merge(@notification), :single)
+    end
+  end
+
+  def when_receive_badge_tanya_interaksi(receiver_id, badge_title)
+    # - Jika mendapat badge _Emas_ untuk partisipasimu dalam Lapor
+    #   - [dikirimkan ke user yang mendapat badge]
+    #       title: Pantau Pemilu
+    #       body:  Selamat! Kamu mendapat badge _Emas_ untuk partisipasimu dalam Lapor!.
+    #   - { notif_type: "profile", event_type: "badge_lapor" }
+
+    reg_ids = registration_ids(receiver_id)
+    if reg_ids.present?
+      data          = {
+      }
+      body          = "Selamat! Kamu mendapat badge #{badge_title} untuk partisipasimu dalam Tanya Interaksi!"
+      @notification = { notification: {
+        title: "Pantau Pemilu",
+        body:  body
+      } }
+      push("profile", "badge_lapor", reg_ids, data.merge(@notification), :single)
+    end
+  end
+
+  def when_receive_badge_profile(receiver_id, badge_title)
+    # - Jika mendapat badge _Emas_ untuk partisipasimu dalam Lapor
+    #   - [dikirimkan ke user yang mendapat badge]
+    #       title: Pantau Pemilu
+    #       body:  Selamat! Kamu mendapat badge _Emas_ untuk partisipasimu dalam Lapor!.
+    #   - { notif_type: "profile", event_type: "badge_lapor" }
+
+    reg_ids = registration_ids(receiver_id)
+    if reg_ids.present?
+      data          = {
+      }
+      body          = "Selamat! Kamu mendapat badge #{badge_title} untuk partisipasimu dalam Kelengkapan Profile!"
+      @notification = { notification: {
+        title: "Pantau Pemilu",
+        body:  body
+      } }
+      push("profile", "badge_lapor", reg_ids, data.merge(@notification), :single)
+    end
+  end
+
+  def when_receive_badge_relawan(receiver_id, badge_title)
+    # - Jika mendapat badge _Emas_ untuk partisipasimu dalam Lapor
+    #   - [dikirimkan ke user yang mendapat badge]
+    #       title: Pantau Pemilu
+    #       body:  Selamat! Kamu mendapat badge _Emas_ untuk partisipasimu dalam Lapor!.
+    #   - { notif_type: "profile", event_type: "badge_lapor" }
+
+    reg_ids = registration_ids(receiver_id)
+    if reg_ids.present?
+      data          = {
+      }
+      body          = "Selamat! Kamu mendapat badge #{badge_title} untuk partisipasimu sebagai Relawan!"
+      @notification = { notification: {
+        title: "Pantau Pemilu",
+        body:  body
+      } }
+      push("profile", "badge_lapor", reg_ids, data.merge(@notification), :single)
+    end
+  end
+
+  def when_receive_badge_pantau_bersama(receiver_id, badge_title)
+    # - Jika mendapat badge _Emas_ untuk partisipasimu dalam Lapor
+    #   - [dikirimkan ke user yang mendapat badge]
+    #       title: Pantau Pemilu
+    #       body:  Selamat! Kamu mendapat badge _Emas_ untuk partisipasimu dalam Lapor!.
+    #   - { notif_type: "profile", event_type: "badge_lapor" }
+
+    reg_ids = registration_ids(receiver_id)
+    if reg_ids.present?
+      data          = {
+      }
+      body          = "Selamat! Kamu mendapat badge #{badge_title} untuk partisipasimu Pantau Bersama!"
       @notification = { notification: {
         title: "Pantau Pemilu",
         body:  body

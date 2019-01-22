@@ -21,13 +21,28 @@ module Subscribers
         ProfileService.new.when_invited_to_claster(params[:receiver_id], params[:user_action_id], params[:cluster_id])
 
       elsif params[:notif_type].eql?("profile") && params[:event_type].eql?("badge_tanya")
-        ProfileService.new.when_receive_badge_tanya(params[:receiver_id])
+        ProfileService.new.when_receive_badge_tanya(params[:receiver_id], params[:badge_title])
 
       elsif params[:notif_type].eql?("profile") && params[:event_type].eql?("badge_kuis")
-        ProfileService.new.when_receive_badge_kuis(params[:receiver_id])
+        ProfileService.new.when_receive_badge_kuis(params[:receiver_id], params[:badge_title])
 
       elsif params[:notif_type].eql?("profile") && params[:event_type].eql?("badge_lapor")
-        ProfileService.new.when_receive_badge_lapor(params[:receiver_id])
+        ProfileService.new.when_receive_badge_lapor(params[:receiver_id], params[:badge_title])
+
+      elsif params[:notif_type].eql?("profile") && params[:event_type].eql?("janji_politik")
+        ProfileService.when_receive_badge_janji_politik(params[:receiver_id], params[:badge_title])
+
+      elsif params[:notif_type].eql?("profile") && params[:event_type].eql?("tanya_interaksi")
+        ProfileService.when_receive_badge_tanya_interaksi(params[:receiver_id], params[:badge_title])
+
+      elsif params[:notif_type].eql?("profile") && params[:event_type].eql?("badge_profile")
+        ProfileService.when_receive_badge_profile(params[:receiver_id], params[:badge_title])
+
+      elsif params[:notif_type].eql?("profile") && params[:event_type].eql?("badge_relawan")
+        ProfileService.when_receive_badge_relawan(params[:receiver_id], params[:badge_title])
+
+      elsif params[:notif_type].eql?("profile") && params[:event_type].eql?("pantau_bersama")
+        ProfileService.when_receive_badge_pantau_bersama(params[:receiver_id], params[:badge_title])
       end
       ack!
     end
