@@ -78,9 +78,6 @@ GEM
     capistrano-rvm (0.1.2)
       capistrano (~> 3.0)
       sshkit (~> 1.2)
-    capistrano-sidekiq (1.0.2)
-      capistrano (>= 3.9.0)
-      sidekiq (>= 3.4)
     capistrano-sneakers (1.2.0)
       capistrano (>= 3.9.0)
       sneakers (>= 2.6)
@@ -212,8 +209,6 @@ GEM
     rack-accept (0.4.5)
       rack (>= 0.4)
     rack-cors (1.0.2)
-    rack-protection (2.0.5)
-      rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (5.2.2)
@@ -279,10 +274,6 @@ GEM
     shellany (0.0.1)
     shoulda-matchers (3.1.2)
       activesupport (>= 4.0.0)
-    sidekiq (5.2.3)
-      connection_pool (~> 2.2, >= 2.2.2)
-      rack-protection (>= 1.5.0)
-      redis (>= 3.3.5, < 5)
     sigdump (0.2.4)
     sneakers (2.11.0)
       bunny (~> 2.12)
@@ -340,7 +331,6 @@ DEPENDENCIES
   capistrano
   capistrano-rails
   capistrano-rvm
-  capistrano-sidekiq
   capistrano-sneakers
   capistrano3-unicorn
   curb
@@ -380,4 +370,4 @@ RUBY VERSION
    ruby 2.5.3p105
 
 BUNDLED WITH
-   1.17.1
+   1.17.2

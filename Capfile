@@ -36,10 +36,10 @@ require "capistrano/rails/migrations"
 require 'capistrano3/unicorn'
 require 'capistrano/seed_migration_tasks'
 # require "whenever/capistrano"
-require 'capistrano/sidekiq'
-require 'capistrano/sidekiq/monit'
-# require 'capistrano/sneakers'
-# require 'capistrano/sneakers/monit'
+# require 'capistrano/sidekiq'
+# require 'capistrano/sidekiq/monit'
+require 'capistrano/sneakers'
+require 'capistrano/sneakers/monit'
 
 # Load custom tasks from `lib/capistrano/tasks` if you have any defined
 Dir.glob("lib/capistrano/tasks/*.rake").each { |r| import r }

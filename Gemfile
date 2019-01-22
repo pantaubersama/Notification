@@ -51,9 +51,7 @@ group :development do
   gem 'capistrano-rails'
   gem 'capistrano3-unicorn'
   gem 'capistrano-rvm'
-  gem 'capistrano-sidekiq'
   gem 'capistrano-sneakers'
-  
 end
 
 ###doc [4] set up faker

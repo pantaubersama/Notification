@@ -8,22 +8,13 @@ set :deploy_to, '/home/ubuntu/notification_service_staging'
 set :branch, 'staging'
 set :rails_env, 'staging'
 set :unicorn_roles, :web
+
 set :whenever_roles, :app
 
-set :sidekiq_env, "staging"
-set :sidekiq_roles, :app
-set :sidekiq_monit_use_sudo, true
-set :sidekiq_monit_conf_file, "sidekiq_notif__#{fetch(:sidekiq_env)}.conf"
-set :sidekiq_service_name, "sidekiq_notif_#{fetch(:application)}_#{fetch(:sidekiq_env)}"
-
-# set :sneakers_default_hooks, true
-# set :sneakers_pid, File.join(shared_path, 'tmp', 'pids', 'sneakers.pid')
-# set :sneakers_env, fetch(:rack_env, fetch(:rails_env, fetch(:stage)))
-# set :sneakers_log, File.join(shared_path, 'log', 'sneakers.log')
-# set :sneakers_roles, :app
-# set :sneakers_processes, 1
-# set :sneakers_run_config, -> { true }
-# set :sneakers_workers, ["Your::Subscriber::Class"]
+set :sneakers_roles, :app
+set :sneakers_processes, 1
+set :sneakers_run_config, -> { true }
+set :sneakers_workers, ["Subscribers::JanjiPolitik", "Subscribers::Pilpres", "Subscribers::Profile", "Subscribers::Question", "Subscribers::Quiz"]
 
 server "52.77.101.168", user: "ubuntu", roles: %w{web db}
 server "13.228.240.205", user: "ubuntu", roles: %w{app}
