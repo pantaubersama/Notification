@@ -42,6 +42,7 @@ module Subscribers
         ProfileService.when_receive_badge_relawan(params[:receiver_id], params[:badge_title])
 
       elsif params[:notif_type].eql?("profile") && params[:event_type].eql?("pantau_bersama")
+        logger.info "Badge pantau bersama ... #{params}"
         ProfileService.when_receive_badge_pantau_bersama(params[:receiver_id], params[:badge_title])
       end
       ack!
