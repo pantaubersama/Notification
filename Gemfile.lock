@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/yunanhelmy/capistrano-sneakers.git
+  revision: e29721c00d140a3d111eee8f25d6a20c2954b1ec
+  branch: release/1.2.1
+  specs:
+    capistrano-sneakers (1.2.1)
+      capistrano (>= 3.9.0)
+      sneakers (>= 2.6)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -78,15 +87,12 @@ GEM
     capistrano-rvm (0.1.2)
       capistrano (~> 3.0)
       sshkit (~> 1.2)
-    capistrano-sneakers (1.2.0)
-      capistrano (>= 3.9.0)
-      sneakers (>= 2.6)
     capistrano3-unicorn (0.2.1)
       capistrano (~> 3.1, >= 3.1.0)
     coderay (1.1.2)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
-    concurrent-ruby (1.1.3)
+    concurrent-ruby (1.1.4)
     connection_pool (2.2.2)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
@@ -147,7 +153,7 @@ GEM
     hashie (3.6.0)
     hashie-forbidden_attributes (0.1.1)
       hashie (>= 3.0)
-    i18n (1.2.0)
+    i18n (1.5.3)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
     json (2.1.0)
@@ -331,7 +337,7 @@ DEPENDENCIES
   capistrano
   capistrano-rails
   capistrano-rvm
-  capistrano-sneakers
+  capistrano-sneakers!
   capistrano3-unicorn
   curb
   database_cleaner
