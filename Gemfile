@@ -123,3 +123,9 @@ gem 'curb'
 gem 'sneakers'
 gem 'json'
 gem 'redis'
+
+# upload image
+gem 'carrierwave', '~> 1.0'
+gem 'mini_magick'
+gem 'fog', require: 'fog/aws'
+gem 'fog-aws'
