@@ -3,6 +3,7 @@ class NotifApplicationService
 
   def initialize(resource = nil)
     @resource     = resource
+    @resource     = nil
     @notification = {
       notification: {
         title: "Pantau Bersama",
@@ -19,6 +20,7 @@ class NotifApplicationService
       build_ios_paylod(notif_type, event_type, registration_ids, data)
     end
     build_notification_log(notif_type, event_type, registration_ids, data, false, receiver_type)
+    @results
   end
 
   def registration_ids(user_ids)
@@ -35,7 +37,6 @@ class NotifApplicationService
 
   end
 
-  private
 
   def build_notification_log(notif_type, event_type, registration_ids, data, is_action = false, receiver_type = :single)
     results = []
@@ -55,7 +56,7 @@ class NotifApplicationService
   end
 
   def build_android_paylod(notif_type, event_type, registration_ids, data)
-    results = { content_available: true }
+    results = { content_available: true }.merge(@notification)
     if registration_ids["android"].present?
       results = results.merge({ registration_ids: registration_ids["android"].pluck(:content) })
     end
@@ -66,7 +67,7 @@ class NotifApplicationService
       priority: "high",
     }
     response = $fcm.push(results.merge(options))
-    Hashie::Mash.new({ response: response.json, headers: response.headers })
+    @results = Hashie::Mash.new({ response: response.json, headers: response.headers })
   end
 
   def build_ios_paylod(notif_type, event_type, registration_ids, data)
@@ -82,7 +83,7 @@ class NotifApplicationService
     }
 
     response = $fcm.push(results.merge(options))
-    Hashie::Mash.new({ response: response.json, headers: response.headers })
+    @results = Hashie::Mash.new({ response: response.json, headers: response.headers })
   end
 
 end
