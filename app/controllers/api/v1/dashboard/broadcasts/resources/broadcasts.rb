@@ -13,7 +13,7 @@ class API::V1::Dashboard::Broadcasts::Resources::Broadcasts < API::V1::Applicati
       unless broadcast.save
         error!(broadcast.errors.full_messages.join(", "), 422)
       end
-      present :broadcast, broadcast, with: API::V1::Dashboard::Broadcasts::Entities::Broadcast
+      present :pemilu_broadcast, broadcast, with: API::V1::Dashboard::Broadcasts::Entities::Broadcast
     end
   end
 end
