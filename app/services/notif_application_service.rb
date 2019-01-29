@@ -12,76 +12,68 @@ class NotifApplicationService
     }
   end
 
-  def push(notif_type = "", event_type = "", registration_ids = { "android" => [], "ios" => [] }, data = {}, receiver_type)
-    if registration_ids["android"].present?
-      build_android_paylod(notif_type, event_type, registration_ids, data)
-    end
-    if registration_ids["ios"].present?
-      build_ios_paylod(notif_type, event_type, registration_ids, data)
-    end
-    build_notification_log(notif_type, event_type, registration_ids, data, false, receiver_type)
+  def push(notif_type = "", event_type = "", registration_ids = { "android" => [], "ios" => [] }, data = {}, broadcast_type)
+    build_sender_paylod(notif_type, event_type, registration_ids, data, broadcast_type)
+    build_notification_log(notif_type, event_type, registration_ids, data, false, broadcast_type)
     @results
   end
 
   def registration_ids(user_ids)
     uids = [user_ids].flatten
-    fk   = []
-    if ["all", :all].include?(uids)
-      fk = FirebaseKey.group_by_key_type
+    if user_ids.present?
+      fk = FirebaseKey.where(user_id: uids).group_by_key_type
     else
-      if user_ids.present?
-        fk = FirebaseKey.where(user_id: uids).group_by_key_type
-      end
+      fk = {}
     end
     fk
-
   end
 
 
-  def build_notification_log(notif_type, event_type, registration_ids, data, is_action = false, receiver_type = :single)
+  def build_notification_log(notif_type, event_type, registration_ids, data, is_action = false, broadcast_type = :topic)
     results = []
-    registration_ids["android"].pluck(:user_id).each do |uid|
+    if broadcast_type.eql?(:topic)
       results << {
-        title:         @notification[:notification][:title],
-        body:          @notification[:notification][:body],
-        user_id:       uid,
-        notif_type:    notif_type,
-        event_type:    event_type,
-        receiver_type: receiver_type,
-        data:          data,
-        is_action:     is_action
+        title:          @notification[:notification][:title],
+        body:           @notification[:notification][:body],
+        user_id:        nil,
+        notif_type:     notif_type,
+        event_type:     event_type,
+        broadcast_type: broadcast_type,
+        data:           data,
+        is_action:      is_action
       }
+    elsif broadcast_type.eql?(:ids)
+      (registration_ids["ios"].pluck(:user_id) + registration_ids["android"].pluck(:user_id)).uniq.each do |uid|
+        results << {
+          title:         @notification[:notification][:title],
+          body:          @notification[:notification][:body],
+          user_id:       uid,
+          notif_type:    notif_type,
+          event_type:    event_type,
+          receiver_type: broadcast_type,
+          data:          data,
+          is_action:     is_action
+        }
+      end
     end
     NotificationLog.create!(results)
   end
 
-  def build_android_paylod(notif_type, event_type, registration_ids, data)
+  def build_sender_paylod(notif_type, event_type, registration_ids, data, broadcast_type: :topic)
     results = { content_available: true }.merge(@notification)
-    if registration_ids["android"].present?
-      results = results.merge({ registration_ids: registration_ids["android"].pluck(:content) })
+
+    # topic or ids
+    if broadcast_type.eql?(:ids)
+      if registration_ids["android"].present? || registration_ids["ios"].present?
+        results = results.merge({ registration_ids: (registration_ids["ios"] + registration_ids["android"]).pluck(:content) })
+      end
+    elsif broadcast_type.eql?(:topic)
+      results = results.merge({ to: "/topics/#{notif_type}#{event_type}" })
     end
-    if data.present?
-      results = results.merge({ data: { notif_type: notif_type, event_type: event_type, payload: data } })
-    end
+    results  = results.merge({ data: { notif_type: notif_type, event_type: event_type, payload: data } })
     options  = {
       priority: "high",
     }
-    response = $fcm.push(results.merge(options))
-    @results = Hashie::Mash.new({ response: response.json, headers: response.headers })
-  end
-
-  def build_ios_paylod(notif_type, event_type, registration_ids, data)
-    results = { content_available: true }.merge(@notification)
-    if registration_ids["ios"].present?
-      results = results.merge({ registration_ids: registration_ids["ios"].pluck(:content) })
-    end
-    if data.present?
-      results = results.merge({ data: { notif_type: notif_type, event_type: event_type, payload: data } })
-    end
-    options = {
-      priority: "high",
-    }
-
     response = $fcm.push(results.merge(options))
     @results = Hashie::Mash.new({ response: response.json, headers: response.headers })
   end

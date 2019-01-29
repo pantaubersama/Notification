@@ -6,16 +6,12 @@ class JanjiPolitikService < NotifApplicationService
     #       body: Ada <count> Janji Politik baru. Simak, yuk!
     #   - { notif_type: "janji_politik", event_type: "report" }
 
-    reg_ids = registration_ids("all")
-    if reg_ids.present?
-      data          = {
-      }
-      body          = "Ada #{count} Janji Politik baru. Simak, yuk!"
-      @notification = { notification: {
-        title: "Pantau Pemilu",
-        body:  body
-      } }
-      push("janji_politik", "report", reg_ids, data.merge(@notification), :multiple)
-    end
+    data          = {}
+    body          = "Ada #{count} Janji Politik baru. Simak, yuk!"
+    @notification = { notification: {
+      title: "Pantau Pemilu",
+      body:  body
+    } }
+    push("janji_politik", "report", {}, data.merge(@notification), :topic)
   end
 end
