@@ -1,7 +1,7 @@
 require "grape-swagger"
 module API
   module V1
-    class Main < Grape::API
+    class MainDashboard < Grape::API
       # Default Config API
       include API::V1::Config
 
@@ -9,20 +9,24 @@ module API
       include API::V1::ExceptionHandlers
 
       # Mounting Modules Api
-      # mount API::V1::Dashboard::Broadcasts::Routes
+      # mount API::V1::Adventures::Routes
+
+      # Mounting Modules Api /linimasa
+      mount API::V1::Dashboard::Broadcasts::Routes
+
 
       # Swagger config
       add_swagger_documentation(
-          api_version:             'v1',
-          doc_version:             'v1',
+          api_version:             'not set',
+          doc_version:             'not set',
           hide_documentation_path: true,
           mount_path:              "doc/api",
           hide_format:             true,
+          array_use_braces:        true,
           info: {
-              title: "Pokemon API",
-              description: "Boilerplate API"
+              title: "Modul Dashboard",
+              description: "Modul Dashboard"
           }
-
       )
     end
   end
