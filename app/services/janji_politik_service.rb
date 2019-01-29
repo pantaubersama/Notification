@@ -12,6 +12,6 @@ class JanjiPolitikService < NotifApplicationService
       title: "Pantau Pemilu",
       body:  body
     } }
-    push("janji_politik", "report", {}, data.merge(@notification), :topic)
+    push("janji_politik", "report", {}, data.merge(@notification), :using_topic)
   end
 end

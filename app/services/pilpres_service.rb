@@ -12,6 +12,6 @@ class PilpresService < NotifApplicationService
       title: "Pantau Pemilu",
       body:  body
     } }
-    push("feed", "report", {}, data.merge(@notification), :topic)
+    push("feed", "report", {}, data.merge(@notification), :using_topic)
   end
 end

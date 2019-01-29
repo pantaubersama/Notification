@@ -14,7 +14,7 @@ class ProfileService < NotifApplicationService
         title: "Pantau Pemilu",
         body:  body
       } }
-      push("profile", "gagal_verifikasi", reg_ids, data.merge(@notification), :ids)
+      push("profile", "gagal_verifikasi", reg_ids, data.merge(@notification), :using_ids)
     end
   end
 
@@ -34,7 +34,7 @@ class ProfileService < NotifApplicationService
         title: "Pantau Pemilu",
         body:  body
       } }
-      push("profile", "berhasil_verifikasi", reg_ids, data.merge(@notification), :ids)
+      push("profile", "berhasil_verifikasi", reg_ids, data.merge(@notification), :using_ids)
     end
   end
 
@@ -55,7 +55,7 @@ class ProfileService < NotifApplicationService
         title: "Pantau Pemilu",
         body:  body
       } }
-      push("profile", "claster_approved", reg_ids, data.merge(@notification), :ids)
+      push("profile", "claster_approved", reg_ids, data.merge(@notification), :using_ids)
     end
   end
 
@@ -75,7 +75,7 @@ class ProfileService < NotifApplicationService
         title: "Pantau Pemilu",
         body:  body
       } }
-      push("profile", "claster_rejected", reg_ids, data.merge(@notification), :ids)
+      push("profile", "claster_rejected", reg_ids, data.merge(@notification), :using_ids)
     end
   end
 
@@ -97,7 +97,7 @@ class ProfileService < NotifApplicationService
         title: "Pantau Pemilu",
         body:  body
       } }
-      push("profile", "cluster_invited", reg_ids, data.merge(@notification), :ids)
+      push("profile", "cluster_invited", reg_ids, data.merge(@notification), :using_ids)
     end
   end
 
@@ -117,7 +117,7 @@ class ProfileService < NotifApplicationService
         title: "Pantau Pemilu",
         body:  body
       } }
-      push("profile", "badge_tanya", reg_ids, data.merge(@notification), :ids)
+      push("profile", "badge_tanya", reg_ids, data.merge(@notification), :using_ids)
     end
   end
 
@@ -137,7 +137,7 @@ class ProfileService < NotifApplicationService
         title: "Pantau Pemilu",
         body:  body
       } }
-      push("profile", "badge_kuis", reg_ids, data.merge(@notification), :ids)
+      push("profile", "badge_kuis", reg_ids, data.merge(@notification), :using_ids)
     end
   end
 
@@ -157,7 +157,7 @@ class ProfileService < NotifApplicationService
         title: "Pantau Pemilu",
         body:  body
       } }
-      push("profile", "badge_lapor", reg_ids, data.merge(@notification), :ids)
+      push("profile", "badge_lapor", reg_ids, data.merge(@notification), :using_ids)
     end
   end
 
@@ -177,7 +177,7 @@ class ProfileService < NotifApplicationService
         title: "Pantau Pemilu",
         body:  body
       } }
-      push("profile", "badge_janji_politik", reg_ids, data.merge(@notification), :ids)
+      push("profile", "badge_janji_politik", reg_ids, data.merge(@notification), :using_ids)
     end
   end
 
@@ -197,7 +197,7 @@ class ProfileService < NotifApplicationService
         title: "Pantau Pemilu",
         body:  body
       } }
-      push("profile", "badge_tanya_interaksi", reg_ids, data.merge(@notification), :ids)
+      push("profile", "badge_tanya_interaksi", reg_ids, data.merge(@notification), :using_ids)
     end
   end
 
@@ -217,7 +217,7 @@ class ProfileService < NotifApplicationService
         title: "Pantau Pemilu",
         body:  body
       } }
-      push("profile", "badge_profile", reg_ids, data.merge(@notification), :ids)
+      push("profile", "badge_profile", reg_ids, data.merge(@notification), :using_ids)
     end
   end
 
@@ -237,7 +237,7 @@ class ProfileService < NotifApplicationService
         title: "Pantau Pemilu",
         body:  body
       } }
-      push("profile", "badge_relawan", reg_ids, data.merge(@notification), :ids)
+      push("profile", "badge_relawan", reg_ids, data.merge(@notification), :using_ids)
     end
   end
 
@@ -257,7 +257,7 @@ class ProfileService < NotifApplicationService
         title: "Pantau Pemilu",
         body:  body
       } }
-      push("profile", "badge_pantau_bersama", reg_ids, data.merge(@notification), :ids)
+      push("profile", "badge_pantau_bersama", reg_ids, data.merge(@notification), :using_ids)
     end
   end
 end

@@ -29,9 +29,9 @@ class NotifApplicationService
   end
 
 
-  def build_notification_log(notif_type, event_type, registration_ids, data, is_action = false, broadcast_type = :topic)
+  def build_notification_log(notif_type, event_type, registration_ids, data, is_action = false, broadcast_type = :using_topic)
     results = []
-    if broadcast_type.eql?(:topic)
+    if broadcast_type.eql?(:using_topic)
       results << {
         title:          @notification[:notification][:title],
         body:           @notification[:notification][:body],
@@ -42,7 +42,7 @@ class NotifApplicationService
         data:           data,
         is_action:      is_action
       }
-    elsif broadcast_type.eql?(:ids)
+    elsif broadcast_type.eql?(:using_ids)
       (registration_ids["ios"].pluck(:user_id) + registration_ids["android"].pluck(:user_id)).uniq.each do |uid|
         results << {
           title:         @notification[:notification][:title],
@@ -59,15 +59,15 @@ class NotifApplicationService
     NotificationLog.create!(results)
   end
 
-  def build_sender_paylod(notif_type, event_type, registration_ids, data, broadcast_type: :topic)
+  def build_sender_paylod(notif_type, event_type, registration_ids, data, broadcast_type: :using_topic)
     results = { content_available: true }.merge(@notification)
 
     # topic or ids
-    if broadcast_type.eql?(:ids)
+    if broadcast_type.eql?(:using_ids)
       if registration_ids["android"].present? || registration_ids["ios"].present?
         results = results.merge({ registration_ids: (registration_ids["ios"] + registration_ids["android"]).pluck(:content) })
       end
-    elsif broadcast_type.eql?(:topic)
+    elsif broadcast_type.eql?(:using_topic)
       results = results.merge({ to: "/topics/#{notif_type}#{event_type}" })
     end
     results  = results.merge({ data: { notif_type: notif_type, event_type: event_type, payload: data } })

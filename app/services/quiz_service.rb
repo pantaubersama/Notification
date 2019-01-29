@@ -16,7 +16,7 @@ class KuisService < NotifApplicationService
         title: "Pantau Pemilu",
         body:  body
       } }
-      push("quiz", "quiz_created", reg_ids, data.merge(@notification), :topic)
+      push("quiz", "quiz_created", reg_ids, data.merge(@notification), :using_topic)
     end
   end
 
