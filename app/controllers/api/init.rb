@@ -14,8 +14,13 @@ module API
     # Build params using object
     include Grape::Extensions::Hashie::Mash::ParamBuilder
 
+    # use middleware
+    use ::GrapeSimpleAuth::Oauth2
+
+    # use helpers
+    helpers ::GrapeSimpleAuth::Helpers
+
     mount API::V1::Main
-    mount API::V2::Main
 
     GrapeSwaggerRails.options.app_url            = "/v1/doc"
     GrapeSwaggerRails.options.url                = "/api"

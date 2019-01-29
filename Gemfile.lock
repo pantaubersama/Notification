@@ -320,6 +320,9 @@ GEM
       grape (>= 0.16.2)
     grape-swagger-rails (0.3.0)
       railties (>= 3.2.12)
+    grape_simple_auth (0.3.0)
+      grape (~> 1.1.0)
+      httparty (~> 0.16.3)
     guard (2.15.0)
       formatador (>= 0.2.4)
       listen (>= 2.7, < 4.0)
@@ -340,6 +343,9 @@ GEM
       hashie (>= 3.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
+    httparty (0.16.3)
+      mime-types (~> 3.0)
+      multi_xml (>= 0.5.2)
     httpclient (2.8.3)
     i18n (1.5.3)
       concurrent-ruby (~> 1.0)
@@ -384,6 +390,7 @@ GEM
     minitest (5.11.3)
     msgpack (1.2.4)
     multi_json (1.13.1)
+    multi_xml (0.6.0)
     multipart-post (2.0.0)
     mustermann (1.0.3)
     mustermann-grape (1.0.0)
@@ -581,6 +588,7 @@ DEPENDENCIES
   grape-middleware-logger
   grape-swagger
   grape-swagger-rails
+  grape_simple_auth (~> 0.3.0)
   guard-rspec
   hashie-forbidden_attributes
   json

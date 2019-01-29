@@ -15,10 +15,10 @@ module API
     include Grape::Extensions::Hashie::Mash::ParamBuilder
 
     # use middleware
-    #use ::GrapeSimpleAuth::Oauth2
+    use ::GrapeSimpleAuth::Oauth2
 
     # use helpers
-    #helpers ::GrapeSimpleAuth::Helpers
+    helpers ::GrapeSimpleAuth::Helpers
 
     mount API::V1::MainDashboard
 

@@ -9,7 +9,7 @@ module API
       include API::V1::ExceptionHandlers
 
       # Mounting Modules Api
-      # mount API::V1::Dashboard::Broadcasts::Routes
+      mount API::V1::Records::Routes
 
       # Swagger config
       add_swagger_documentation(

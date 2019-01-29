@@ -84,6 +84,7 @@ gem 'grape'
 gem 'grape-middleware-logger'
 gem 'grape-entity'
 gem 'hashie-forbidden_attributes'
+gem 'grape_simple_auth', '~> 0.3.0'
 
 # documentation
 gem 'grape-swagger'

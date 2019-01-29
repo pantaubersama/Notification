@@ -14,7 +14,6 @@ class NotifApplicationService
 
   def push(notif_type = "", event_type = "", registration_ids = { "android" => [], "ios" => [] }, data = {}, broadcast_type)
     build_sender_paylod(notif_type, event_type, registration_ids, data, broadcast_type)
-    build_notification_log(notif_type, event_type, registration_ids, data, false, broadcast_type)
     @results
   end
 
@@ -71,13 +70,15 @@ class NotifApplicationService
       elsif broadcast_type.eql?(:using_topic)
         results = results.merge({ to: "/topics/#{notif_type}-#{event_type}" })
       end
-      results  = results.merge({ data: { notif_type: notif_type, event_type: event_type, payload: data } })
+      datas    = data.merge({ notif_type: notif_type, event_type: event_type })
+      results  = results.merge(datas)
       options  = {
         priority: "high",
       }
       response = $fcm.push(results.merge(options))
       print "#{response}"
       @results = Hashie::Mash.new({ response: response.json, headers: response.headers })
+      build_notification_log(notif_type, event_type, registration_ids, datas, false, broadcast_type)
     end
 
   end
