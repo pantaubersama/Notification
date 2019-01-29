@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_28_061626) do
+ActiveRecord::Schema.define(version: 2019_01_29_060035) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2019_01_28_061626) do
     t.uuid "user_id"
     t.string "notif_type", null: false
     t.string "event_type", null: false
-    t.integer "receiver_type", default: 1, null: false
+    t.integer "broadcast_type", default: 1, null: false
     t.datetime "readed_at"
     t.boolean "is_action", default: false, null: false
     t.datetime "created_at", null: false
