@@ -50,7 +50,7 @@ class NotifApplicationService
           user_id:       uid,
           notif_type:    notif_type,
           event_type:    event_type,
-          receiver_type: broadcast_type,
+          broadcast_type: broadcast_type,
           data:          data,
           is_action:     is_action
         }
