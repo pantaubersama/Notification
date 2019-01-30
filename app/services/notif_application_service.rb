@@ -71,7 +71,7 @@ class NotifApplicationService
         results = results.merge({ to: "/topics/#{notif_type}-#{event_type}" })
       end
       datas    = data.merge({ notif_type: notif_type, event_type: event_type })
-      results  = results.merge(datas)
+      results  = results.merge(data: datas)
       options  = {
         priority: "high",
       }
