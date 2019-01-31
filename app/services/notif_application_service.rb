@@ -4,6 +4,7 @@ class NotifApplicationService
   def initialize(resource = nil)
     @resource     = resource
     @resource     = nil
+    @payload      = {}
     @notification = {
       notification: {
         title: "Pantau Bersama",
@@ -15,6 +16,7 @@ class NotifApplicationService
   def push(notif_type = "", event_type = "", registration_ids = { "android" => [], "ios" => [] }, data = {}, broadcast_type)
     build_android_paylod(notif_type, event_type, registration_ids, data, broadcast_type)
     build_ios_paylod(notif_type, event_type, registration_ids, data, broadcast_type)
+    build_notification_log(notif_type, event_type, registration_ids, @payload, false, broadcast_type)
     @results
   end
 
@@ -63,7 +65,6 @@ class NotifApplicationService
   def build_android_paylod(notif_type, event_type, registration_ids, data, broadcast_type)
     if [:using_topic, :using_ids].include?(broadcast_type)
       results = { content_available: true }
-      payload = {}
       # topic or ids
       if broadcast_type.eql?(:using_ids)
         if registration_ids["android"].present?
@@ -72,22 +73,20 @@ class NotifApplicationService
       elsif broadcast_type.eql?(:using_topic)
         results = results.merge({ to: "/topics/android-#{notif_type}-#{event_type}" })
       end
-      payload[:payload] = data.merge({ notif_type: notif_type, event_type: event_type })
-      results           = results.merge(data: payload)
+      @payload[:payload] = data.merge({ notif_type: notif_type, event_type: event_type })
+      results           = results.merge(data: @payload)
       options           = {
         priority: "high",
       }
       response          = $fcm.push(results.merge(options))
       print "#{response}"
       @results = Hashie::Mash.new({ response: response.json, headers: response.headers })
-      build_notification_log(notif_type, event_type, registration_ids, payload, false, broadcast_type)
     end
 
   end
 
   def build_ios_paylod(notif_type, event_type, registration_ids, data, broadcast_type)
     if [:using_topic, :using_ids].include?(broadcast_type)
-      payload = {}
       results = { content_available: true }.merge(@notification)
 
       # topic or ids
@@ -98,16 +97,14 @@ class NotifApplicationService
       elsif broadcast_type.eql?(:using_topic)
         results = results.merge({ to: "/topics/ios-#{notif_type}-#{event_type}" })
       end
-      payload[:payload] = data.merge({ notif_type: notif_type, event_type: event_type })
-      results           = results.merge(data: payload)
+      @payload[:payload] = data.merge({ notif_type: notif_type, event_type: event_type })
+      results           = results.merge(data: @payload)
       options           = {
         priority: "high",
       }
       response          = $fcm.push(results.merge(options))
       print "#{response}"
       @results = Hashie::Mash.new({ response: response.json, headers: response.headers })
-      build_notification_log(notif_type, event_type, registration_ids, payload, false, broadcast_type)
     end
-
   end
 end
