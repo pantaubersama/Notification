@@ -13,7 +13,8 @@ class NotifApplicationService
   end
 
   def push(notif_type = "", event_type = "", registration_ids = { "android" => [], "ios" => [] }, data = {}, broadcast_type)
-    build_sender_paylod(notif_type, event_type, registration_ids, data, broadcast_type)
+    build_android_paylod(notif_type, event_type, registration_ids, data, broadcast_type)
+    build_ios_paylod(notif_type, event_type, registration_ids, data, broadcast_type)
     @results
   end
 
@@ -27,8 +28,9 @@ class NotifApplicationService
     fk
   end
 
+  private
 
-  def build_notification_log(notif_type, event_type, registration_ids, data, is_action = false, broadcast_type = :using_topic)
+  def build_notification_log(notif_type, event_type, registration_ids, payload, is_action = false, broadcast_type = :using_topic)
     results = []
     if broadcast_type.eql?(:using_topic)
       results << {
@@ -38,7 +40,7 @@ class NotifApplicationService
         notif_type:     notif_type,
         event_type:     event_type,
         broadcast_type: broadcast_type,
-        data:           data,
+        data:           payload,
         is_action:      is_action
       }
     elsif broadcast_type.eql?(:using_ids)
@@ -58,27 +60,53 @@ class NotifApplicationService
     NotificationLog.create!(results)
   end
 
-  def build_sender_paylod(notif_type, event_type, registration_ids, data, broadcast_type)
+  def build_android_paylod(notif_type, event_type, registration_ids, data, broadcast_type)
     if [:using_topic, :using_ids].include?(broadcast_type)
+      results = { content_available: true }
+      payload = {}
+      # topic or ids
+      if broadcast_type.eql?(:using_ids)
+        if registration_ids["android"].present?
+          results = results.merge({ registration_ids: (registration_ids["android"]).pluck(:content) })
+        end
+      elsif broadcast_type.eql?(:using_topic)
+        results = results.merge({ to: "/topics/android-#{notif_type}-#{event_type}" })
+      end
+      payload[:payload] = data.merge({ notif_type: notif_type, event_type: event_type })
+      results           = results.merge(data: payload)
+      options           = {
+        priority: "high",
+      }
+      response          = $fcm.push(results.merge(options))
+      print "#{response}"
+      @results = Hashie::Mash.new({ response: response.json, headers: response.headers })
+      build_notification_log(notif_type, event_type, registration_ids, payload, false, broadcast_type)
+    end
+
+  end
+
+  def build_ios_paylod(notif_type, event_type, registration_ids, data, broadcast_type)
+    if [:using_topic, :using_ids].include?(broadcast_type)
+      payload = {}
       results = { content_available: true }.merge(@notification)
 
       # topic or ids
       if broadcast_type.eql?(:using_ids)
-        if registration_ids["android"].present? || registration_ids["ios"].present?
-          results = results.merge({ registration_ids: (registration_ids["ios"] + registration_ids["android"]).pluck(:content) })
+        if registration_ids["ios"].present?
+          results = results.merge({ registration_ids: (registration_ids["ios"]).pluck(:content) })
         end
       elsif broadcast_type.eql?(:using_topic)
-        results = results.merge({ to: "/topics/#{notif_type}-#{event_type}" })
+        results = results.merge({ to: "/topics/ios-#{notif_type}-#{event_type}" })
       end
-      datas    = data.merge({ notif_type: notif_type, event_type: event_type })
-      results  = results.merge(data: datas)
-      options  = {
+      payload[:payload] = data.merge({ notif_type: notif_type, event_type: event_type })
+      results           = results.merge(data: payload)
+      options           = {
         priority: "high",
       }
-      response = $fcm.push(results.merge(options))
+      response          = $fcm.push(results.merge(options))
       print "#{response}"
       @results = Hashie::Mash.new({ response: response.json, headers: response.headers })
-      build_notification_log(notif_type, event_type, registration_ids, datas, false, broadcast_type)
+      build_notification_log(notif_type, event_type, registration_ids, payload, false, broadcast_type)
     end
 
   end
