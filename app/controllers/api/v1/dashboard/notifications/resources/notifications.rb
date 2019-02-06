@@ -5,12 +5,12 @@ class API::V1::Dashboard::Notifications::Resources::Notifications < API::V1::App
       authorize_admin!
     end
 
-    desc "list broadcast" do
+    desc "list notification log" do
       headers AUTHORIZATION_HEADERS
-      detail "list broadcast"
+      detail "list notification log"
     end
     params do
-      optional :title, type: String, desc: "Title Notification"
+      optional :title, type: String, desc: "Title Notification Log"
     end
     paginate per_page: Pagy::VARS[:items], max_per_page: Pagy::VARS[:max_per_page]
     oauth2
@@ -20,9 +20,9 @@ class API::V1::Dashboard::Notifications::Resources::Notifications < API::V1::App
       present_metas resources
     end
 
-    desc "show detail broadcast" do
+    desc "show detail notification log" do
       headers AUTHORIZATION_HEADERS
-      detail "show detail broadcast"
+      detail "show detail notification log"
     end
     oauth2
     get '/:id' do
