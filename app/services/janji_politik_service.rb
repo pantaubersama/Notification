@@ -1,5 +1,5 @@
 class JanjiPolitikService < NotifApplicationService
-  def when_janji_politik_repot(count)
+  def when_janji_politik_report(count)
     # - Jika ada report janji_politik
     #   - [dikirimkan ke semua user pantau]
     #       title: Pantau Pemilu

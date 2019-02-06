@@ -10,7 +10,7 @@ module Subscribers
       if params[:notif_type].eql?("janji_politik") && params[:event_type].eql?("report")
         logger.info " --event_type: report"
         count = params[:count].to_i || 25
-        JanjiPolitikService.new.when_janji_politik_repot(count)
+        JanjiPolitikService.new.when_janji_politik_report(count)
       end
       logger.info "Subscribers::JanjiPolitik finished"
       ack!
