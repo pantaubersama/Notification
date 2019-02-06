@@ -19,5 +19,15 @@ class API::V1::Dashboard::Notifications::Resources::Notifications < API::V1::App
       present :notifications, resources, with: API::V1::Dashboard::Notifications::Entities::Notification
       present_metas resources
     end
+
+    desc "show detail broadcast" do
+      headers AUTHORIZATION_HEADERS
+      detail "show detail broadcast"
+    end
+    oauth2
+    get '/:id' do
+      present :notification, NotificationLog.find(params[:id]), with: API::V1::Dashboard::Notifications::Entities::Notification
+    end
+
   end
 end
