@@ -4,18 +4,14 @@ class PilpresService < NotifApplicationService
     #   - [dikirimkan ke user]
     #       title: Pantau Pemilu
     #       body: <count> Tweet baru di Linimasa. Jangan ketinggalan informasinya!
-    #   - { notif_type: "feed", event_type: "feed_report" }
+    #   - { notif_type: "feed", event_type: "report" }
 
-    reg_ids = registration_ids("all")
-    if reg_ids.present?
-      data          = {
-      }
-      body          = "#{count} Tweet baru di Linimasa. Jangan ketinggalan informasinya!"
-      @notification = { notification: {
-        title: "Pantau Pemilu",
-        body:  body
-      } }
-      push("feed", "report", reg_ids, data.merge(@notification), :multiple)
-    end
+    data          = {}
+    body          = "#{count} Tweet baru di Linimasa. Jangan ketinggalan informasinya!"
+    @notification = { notification: {
+      title: "Pantau Pemilu",
+      body:  body
+    } }
+    push("feed", "report", {}, data.merge(@notification), :using_topic)
   end
 end

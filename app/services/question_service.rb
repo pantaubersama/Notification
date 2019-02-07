@@ -15,7 +15,7 @@ class QuestionService < NotifApplicationService
         title: "Pantau Pemilu",
         body:  body
       } }
-      push("question", "upvote_repot", reg_ids, data.merge(@notification), :single)
+      push("question", "upvote_repot", reg_ids, data.merge(@notification), :using_ids)
     end
   end
 
@@ -36,7 +36,7 @@ class QuestionService < NotifApplicationService
         title: "Pantau Pemilu",
         body:  body
       } }
-      push("question", "upvote", reg_ids, data.merge(@notification), :single)
+      push("question", "upvote", reg_ids, data.merge(@notification), :using_ids)
     end
   end
 end

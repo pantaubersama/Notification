@@ -8,14 +8,13 @@ class ProfileService < NotifApplicationService
 
     reg_ids = registration_ids(receiver_id)
     if reg_ids.present?
-      data          = {
-      }
+      data          = {}
       body          = "Ups, akun kamu gagal melakukan verifikasi. Mohon coba lagi ya! Atau lebih lanjut hubungi Rumah Pantau di contact@pantaubersama.com"
       @notification = { notification: {
         title: "Pantau Pemilu",
         body:  body
       } }
-      push("profile", "gagal_verifikasi", reg_ids, data.merge(@notification), :single)
+      push("profile", "gagal_verifikasi", reg_ids, data.merge(@notification), :using_ids)
     end
   end
 
@@ -35,7 +34,7 @@ class ProfileService < NotifApplicationService
         title: "Pantau Pemilu",
         body:  body
       } }
-      push("profile", "berhasil_verifikasi", reg_ids, data.merge(@notification), :single)
+      push("profile", "berhasil_verifikasi", reg_ids, data.merge(@notification), :using_ids)
     end
   end
 
@@ -56,7 +55,7 @@ class ProfileService < NotifApplicationService
         title: "Pantau Pemilu",
         body:  body
       } }
-      push("profile", "claster_approved", reg_ids, data.merge(@notification), :single)
+      push("profile", "claster_approved", reg_ids, data.merge(@notification), :using_ids)
     end
   end
 
@@ -76,7 +75,7 @@ class ProfileService < NotifApplicationService
         title: "Pantau Pemilu",
         body:  body
       } }
-      push("profile", "claster_rejected", reg_ids, data.merge(@notification), :single)
+      push("profile", "claster_rejected", reg_ids, data.merge(@notification), :using_ids)
     end
   end
 
@@ -98,15 +97,15 @@ class ProfileService < NotifApplicationService
         title: "Pantau Pemilu",
         body:  body
       } }
-      push("profile", "cluster_invited", reg_ids, data.merge(@notification), :single)
+      push("profile", "cluster_invited", reg_ids, data.merge(@notification), :using_ids)
     end
   end
 
   def when_receive_badge_tanya(receiver_id, badge_title)
-    # - Jika  mendapat badge _Perunggu_ sebagai apresiasi partisipasi dalam Tanya
+    # - Jika  mendapat badge <badge_title> sebagai apresiasi partisipasi dalam Tanya
     #   - [dikirimkan ke user yang mendapat badge]
     #       title: Pantau Pemilu
-    #       body: Selamat! Kamu mendapat badge _Perunggu_ sebagai apresiasi partisipasi dalam Tanya.
+    #       body: Selamat! Kamu mendapat badge  <badge_title> sebagai apresiasi partisipasi dalam Tanya.
     #   - { notif_type: "profile", event_type: "badge_tanya" }
 
     reg_ids = registration_ids(receiver_id)
@@ -118,15 +117,15 @@ class ProfileService < NotifApplicationService
         title: "Pantau Pemilu",
         body:  body
       } }
-      push("profile", "badge_tanya", reg_ids, data.merge(@notification), :single)
+      push("profile", "badge_tanya", reg_ids, data.merge(@notification), :using_ids)
     end
   end
 
   def when_receive_badge_kuis(receiver_id, badge_title)
-    # - Jika  mendapat badge _Perunggu_ sebagai apresiasi partisipasi dalam Kuis
+    # - Jika  mendapat badge  <badge_title> sebagai apresiasi partisipasi dalam Kuis
     #   - [dikirimkan ke user yang mendapat badge]
     #       title: Pantau Pemilu
-    #       body:  Selamat! Kamu mendapatkan badge _Perunggu_ atas partisipasimu dalam mengikuti kuis pantau.
+    #       body:  Selamat! Kamu mendapatkan badge  <badge_title> atas partisipasimu dalam mengikuti kuis pantau.
     #   - { notif_type: "profile", event_type: "badge_kuis" }
 
     reg_ids = registration_ids(receiver_id)
@@ -138,15 +137,15 @@ class ProfileService < NotifApplicationService
         title: "Pantau Pemilu",
         body:  body
       } }
-      push("profile", "badge_kuis", reg_ids, data.merge(@notification), :single)
+      push("profile", "badge_kuis", reg_ids, data.merge(@notification), :using_ids)
     end
   end
 
   def when_receive_badge_lapor(receiver_id, badge_title)
-    # - Jika mendapat badge _Emas_ untuk partisipasimu dalam Lapor
+    # - Jika mendapat badge  <badge_title> untuk partisipasimu dalam Lapor
     #   - [dikirimkan ke user yang mendapat badge]
     #       title: Pantau Pemilu
-    #       body:  Selamat! Kamu mendapat badge _Emas_ untuk partisipasimu dalam Lapor!.
+    #       body:  Selamat! Kamu mendapat badge  <badge_title> untuk partisipasimu dalam Lapor!.
     #   - { notif_type: "profile", event_type: "badge_lapor" }
 
     reg_ids = registration_ids(receiver_id)
@@ -158,16 +157,16 @@ class ProfileService < NotifApplicationService
         title: "Pantau Pemilu",
         body:  body
       } }
-      push("profile", "badge_lapor", reg_ids, data.merge(@notification), :single)
+      push("profile", "badge_lapor", reg_ids, data.merge(@notification), :using_ids)
     end
   end
 
   def when_receive_badge_janji_politik(receiver_id, badge_title)
-    # - Jika mendapat badge _Emas_ untuk partisipasimu dalam Lapor
+    # - Jika mendapat badge  <badge_title> untuk partisipasimu dalam Janji Politik
     #   - [dikirimkan ke user yang mendapat badge]
     #       title: Pantau Pemilu
-    #       body:  Selamat! Kamu mendapat badge _Emas_ untuk partisipasimu dalam Lapor!.
-    #   - { notif_type: "profile", event_type: "badge_lapor" }
+    #       body:  Selamat! Kamu mendapat badge  <badge_title> untuk partisipasimu dalam Janji Politik!.
+    #   - { notif_type: "profile", event_type: "badge_janji_politik" }
 
     reg_ids = registration_ids(receiver_id)
     if reg_ids.present?
@@ -178,16 +177,16 @@ class ProfileService < NotifApplicationService
         title: "Pantau Pemilu",
         body:  body
       } }
-      push("profile", "badge_lapor", reg_ids, data.merge(@notification), :single)
+      push("profile", "badge_janji_politik", reg_ids, data.merge(@notification), :using_ids)
     end
   end
 
   def when_receive_badge_tanya_interaksi(receiver_id, badge_title)
-    # - Jika mendapat badge _Emas_ untuk partisipasimu dalam Lapor
+    # - Jika mendapat badge  <badge_title> untuk partisipasimu dalam Tanya Interaksi
     #   - [dikirimkan ke user yang mendapat badge]
     #       title: Pantau Pemilu
-    #       body:  Selamat! Kamu mendapat badge _Emas_ untuk partisipasimu dalam Lapor!.
-    #   - { notif_type: "profile", event_type: "badge_lapor" }
+    #       body:  Selamat! Kamu mendapat badge  <badge_title> untuk partisipasimu dalam Tanya Interaksi!.
+    #   - { notif_type: "profile", event_type: "badge_tanya_interaksi" }
 
     reg_ids = registration_ids(receiver_id)
     if reg_ids.present?
@@ -198,36 +197,36 @@ class ProfileService < NotifApplicationService
         title: "Pantau Pemilu",
         body:  body
       } }
-      push("profile", "badge_lapor", reg_ids, data.merge(@notification), :single)
+      push("profile", "badge_tanya_interaksi", reg_ids, data.merge(@notification), :using_ids)
     end
   end
 
   def when_receive_badge_profile(receiver_id, badge_title)
-    # - Jika mendapat badge _Emas_ untuk partisipasimu dalam Lapor
+    # - Jika mendapat badge <badge_title> untuk Kelengkapan Profile
     #   - [dikirimkan ke user yang mendapat badge]
     #       title: Pantau Pemilu
-    #       body:  Selamat! Kamu mendapat badge _Emas_ untuk partisipasimu dalam Lapor!.
-    #   - { notif_type: "profile", event_type: "badge_lapor" }
+    #       body:  Selamat! Kamu mendapat badge <badge_title> untuk partisipasimu dalam Lapor!.
+    #   - { notif_type: "profile", event_type: "badge_profile" }
 
     reg_ids = registration_ids(receiver_id)
     if reg_ids.present?
       data          = {
       }
-      body          = "Selamat! Kamu mendapat badge #{badge_title} untuk partisipasimu dalam Kelengkapan Profile!"
+      body          = "Selamat! Kamu mendapat badge #{badge_title} untuk  Kelengkapan Profile!"
       @notification = { notification: {
         title: "Pantau Pemilu",
         body:  body
       } }
-      push("profile", "badge_lapor", reg_ids, data.merge(@notification), :single)
+      push("profile", "badge_profile", reg_ids, data.merge(@notification), :using_ids)
     end
   end
 
   def when_receive_badge_relawan(receiver_id, badge_title)
-    # - Jika mendapat badge _Emas_ untuk partisipasimu dalam Lapor
+    # - Jika mendapat badge <badge_title> untuk partisipasimu sebagai Relawan
     #   - [dikirimkan ke user yang mendapat badge]
     #       title: Pantau Pemilu
-    #       body:  Selamat! Kamu mendapat badge _Emas_ untuk partisipasimu dalam Lapor!.
-    #   - { notif_type: "profile", event_type: "badge_lapor" }
+    #       body:  Selamat! Kamu mendapat badge <badge_title> untuk partisipasimu sebagai Relawan.
+    #   - { notif_type: "profile", event_type: "badge_relawan" }
 
     reg_ids = registration_ids(receiver_id)
     if reg_ids.present?
@@ -238,27 +237,27 @@ class ProfileService < NotifApplicationService
         title: "Pantau Pemilu",
         body:  body
       } }
-      push("profile", "badge_lapor", reg_ids, data.merge(@notification), :single)
+      push("profile", "badge_relawan", reg_ids, data.merge(@notification), :using_ids)
     end
   end
 
   def when_receive_badge_pantau_bersama(receiver_id, badge_title)
-    # - Jika mendapat badge _Emas_ untuk partisipasimu dalam Lapor
+    # - Jika mendapat badge <badge_title> untuk partisipasimu di Pantau Bersama!"
     #   - [dikirimkan ke user yang mendapat badge]
     #       title: Pantau Pemilu
-    #       body:  Selamat! Kamu mendapat badge _Emas_ untuk partisipasimu dalam Lapor!.
-    #   - { notif_type: "profile", event_type: "badge_lapor" }
+    #       body:  Selamat! Kamu mendapat badge <badge_title> untuk partisipasimu di Pantau Bersama!".
+    #   - { notif_type: "profile", event_type: "badge_pantau_bersama" }
 
     reg_ids = registration_ids(receiver_id)
     if reg_ids.present?
       data          = {
       }
-      body          = "Selamat! Kamu mendapat badge #{badge_title} untuk partisipasimu Pantau Bersama!"
+      body          = "Selamat! Kamu mendapat badge #{badge_title} untuk partisipasimu di Pantau Bersama!"
       @notification = { notification: {
         title: "Pantau Pemilu",
         body:  body
       } }
-      push("profile", "badge_lapor", reg_ids, data.merge(@notification), :single)
+      push("profile", "badge_pantau_bersama", reg_ids, data.merge(@notification), :using_ids)
     end
   end
 end

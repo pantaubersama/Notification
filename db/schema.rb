@@ -10,12 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_03_204259) do
+ActiveRecord::Schema.define(version: 2019_01_29_063437) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
+
+  create_table "notification_logs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "title", null: false
+    t.text "body", null: false
+    t.uuid "user_id"
+    t.string "notif_type", null: false
+    t.string "event_type", null: false
+    t.integer "broadcast_type", default: 1, null: false
+    t.datetime "readed_at"
+    t.boolean "is_action", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "data"
+  end
+
+  create_table "pemilu_broadcasts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.string "link"
+    t.integer "event_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "seed_migration_data_migrations", id: :serial, force: :cascade do |t|
     t.string "version"
