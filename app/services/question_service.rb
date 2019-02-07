@@ -31,6 +31,11 @@ class QuestionService < NotifApplicationService
     reg_ids     = registration_ids(receiver_id)
     if reg_ids.present?
       data          = {
+        question: {
+          id:         question.id,
+          body:       question.body,
+          created_at: question.created_at.iso8601
+        }
       }
       body          = "Yup! Pertanyaan kamu mendapat Upvote dari #{user_action.full_name}."
       @notification = { notification: {

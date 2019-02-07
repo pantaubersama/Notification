@@ -13,7 +13,7 @@ module Subscribers
         QuestionService.new.when_upvote_report(params[:question_id], count)
       elsif params[:notif_type].eql?("question") && params[:event_type].eql?("upvote")
         logger.info " --event_type: upvote"
-        QuestionService.new.when_receive_upvote(params[:question_id],params[:receiver_id], params[:user_action_id])
+        QuestionService.new.when_receive_upvote(params[:question_id], params[:receiver_id], params[:user_action_id])
       end
       logger.info "Subscribers::Question finished"
       ack!
