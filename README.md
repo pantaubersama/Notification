@@ -2,7 +2,7 @@
 ## Notification Service 
 
 ##### Setup
-- `git clone git@git.extrainteger.com:pantau-group/API/notification-service.git`
+- `git clone git@github.com:pantaubersama/Notification.git`
 - setup your database (postgresql)
 - create env variable files (.env.development , .env.test)
     - `.env.development`
