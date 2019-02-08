@@ -9,7 +9,13 @@ class QuestionService < NotifApplicationService
     question = Question.find(question_id)
     reg_ids  = registration_ids(question.user.id)
     if reg_ids.present?
-      data          = {}
+      data          = {
+        question: {
+          id:         question.id,
+          body:       question.body,
+          created_at: question.created_at.iso8601
+        }
+      }
       body          = "Hore! partisipasimu dalam tanya diupvote #{count} kali"
       @notification = { notification: {
         title: "Pantau Pemilu",
