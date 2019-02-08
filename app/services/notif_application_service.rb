@@ -54,7 +54,7 @@ class NotifApplicationService
           notif_type:     notif_type,
           event_type:     event_type,
           broadcast_type: broadcast_type,
-          data:           data,
+          data:           payload,
           is_action:      is_action
         }
       end
