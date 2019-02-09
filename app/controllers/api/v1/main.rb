@@ -10,7 +10,7 @@ module API
 
       # Mounting Modules Api
       mount API::V1::Records::Routes
-      mount API::V1::OnlyStaging::Routes unless Rails.env.production?
+      mount API::V1::OnlyStaging::Routes
 
       # Swagger config
       add_swagger_documentation(
