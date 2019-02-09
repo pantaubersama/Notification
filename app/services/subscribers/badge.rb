@@ -6,7 +6,9 @@ module Subscribers
     def work(params)
       params = json_response params
       logger.info "Subscribers::Badge"
-      logger.info " --params: #{params}"
+      logger.info " --params: #{params}\n"
+      logger.info " --event_type: #{params[:notif_type]}\n"
+      logger.info " --notif_type: #{params[:event_type]}\n"
 
       if params[:notif_type].eql?("badge") && params[:event_type].eql?("tanya")
         logger.info " --event_type: tanya"
