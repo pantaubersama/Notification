@@ -19,7 +19,7 @@ class QuizService < NotifApplicationService
       title: "Pantau Pemilu",
       body:  body
     } }
-    push("quiz", "quiz_created", {}, data.merge(@notification), :using_topic)
+    push("quiz", "created_quiz", {}, data.merge(@notification), :using_topic)
   end
 
   private
