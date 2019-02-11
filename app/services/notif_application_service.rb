@@ -3,7 +3,6 @@ class NotifApplicationService
 
   def initialize(resource = nil)
     @resource     = resource
-    @resource     = nil
     @payload      = {}
     @notification = {
       notification: {
@@ -80,8 +79,8 @@ class NotifApplicationService
         priority: "high",
       }
       response           = $fcm.push(results.merge(options))
-      print "#{response}"
-      @results << Hashie::Mash.new({ response: response.json , app_type: :android })
+      print "#{response.header}"
+      @results << { response: response.json, app_type: :android }
     end
 
   end
@@ -104,8 +103,8 @@ class NotifApplicationService
         priority: "high",
       }
       response           = $fcm.push(results.merge(options))
-      print "#{response}"
-      @results << Hashie::Mash.new({ response: response.json, app_type: :ios })
+      print "#{response.header}"
+      @results << {response: response.json, app_type: :ios }
     end
   end
 end
