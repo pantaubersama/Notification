@@ -6,7 +6,7 @@ class API::V1::OnlyStaging::Resources::OnlyStaging < API::V1::ApplicationResourc
       desc "QuestionService", headers: AUTHORIZATION_HEADERS
       params do
         requires :notif_type, type: String, default: "question"
-        requires :event_type, type: String, values: ["upvote_report", "upvote"]
+        requires :event_type, type: String, values: ["upvote_report", "upvote","add_to_folder"]
         requires :question_id, type: String
       end
       oauth2
@@ -17,9 +17,11 @@ class API::V1::OnlyStaging::Resources::OnlyStaging < API::V1::ApplicationResourc
         elsif params[:notif_type].eql?("question") && params[:event_type].eql?("upvote")
           question = Question.find(params[:question_id])
           QuestionService.new.when_receive_upvote(question.id, question.user.id, User.last.id)
+        elsif params[:notif_type].eql?("question") && params[:event_type].eql?("add_to_folder")
+          question = Question.find(params[:question_id])
+          QuestionService.new.when_add_to_folder(question.id, question.user.id)
         end
       end
-
 
       desc "BadgeService", headers: AUTHORIZATION_HEADERS
       params do
