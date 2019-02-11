@@ -6,13 +6,13 @@ class BadgeService < NotifApplicationService
     #       body: Selamat! Kamu mendapat badge  <badge_id> sebagai apresiasi partisipasi dalam Tanya.
     #   - { notif_type: "profile", event_type: "tanya" }
 
-    badge   = Badge.find(badge_id)
-    reg_ids = registration_ids(receiver_id)
+    achieved_badge = AchievedBadge.find_by(badge_id: badge_id, user_id: receiver_id)
+    reg_ids        = registration_ids(receiver_id)
     if reg_ids.present?
       data          = {
-        badge: resource_badge(badge)
+        achieved_badge: resource_badge(achieved_badge)
       }
-      body          = "Selamat! Kamu mendapat badge #{badge.name} sebagai apresiasi partisipasi dalam Tanya."
+      body          = "Selamat! Kamu mendapat badge #{achieved_badge.badge.name}  sebagai apresiasi partisipasi dalam Tanya."
       @notification = { notification: {
         title: "Pantau Pemilu",
         body:  body
@@ -28,13 +28,13 @@ class BadgeService < NotifApplicationService
     #       body:  Selamat! Kamu mendapatkan badge  <badge_id> atas partisipasimu dalam mengikuti kuis pantau.
     #   - { notif_type: "badge", event_type: "kuis" }
 
-    badge   = Badge.find(badge_id)
-    reg_ids = registration_ids(receiver_id)
+    achieved_badge = AchievedBadge.find_by(badge_id: badge_id, user_id: receiver_id)
+    reg_ids        = registration_ids(receiver_id)
     if reg_ids.present?
       data          = {
-        badge: resource_badge(badge)
+        achieved_badge: resource_badge(achieved_badge)
       }
-      body          = "Selamat! Kamu mendapatkan badge #{badge.name} atas partisipasimu dalam mengikuti kuis pantau."
+      body          = "Selamat! Kamu mendapatkan badge #{achieved_badge.badge.name}  atas partisipasimu dalam mengikuti kuis pantau."
       @notification = { notification: {
         title: "Pantau Pemilu",
         body:  body
@@ -50,13 +50,13 @@ class BadgeService < NotifApplicationService
     #       body:  Selamat! Kamu mendapat badge  <badge_id> untuk partisipasimu dalam Lapor!.
     #   - { notif_type: "badge", event_type: "lapor" }
 
-    badge   = Badge.find(badge_id)
-    reg_ids = registration_ids(receiver_id)
+    achieved_badge = AchievedBadge.find_by(badge_id: badge_id, user_id: receiver_id)
+    reg_ids        = registration_ids(receiver_id)
     if reg_ids.present?
       data          = {
-        badge: resource_badge(badge)
+        achieved_badge: resource_badge(achieved_badge)
       }
-      body          = "Selamat! Kamu mendapat badge #{badge.name} untuk partisipasimu dalam Lapor!"
+      body          = "Selamat! Kamu mendapat badge #{achieved_badge.badge.name}  untuk partisipasimu dalam Lapor!"
       @notification = { notification: {
         title: "Pantau Pemilu",
         body:  body
@@ -72,13 +72,13 @@ class BadgeService < NotifApplicationService
     #       body:  Selamat! Kamu mendapat badge  <badge_id> untuk partisipasimu dalam Janji Politik!.
     #   - { notif_type: "badge", event_type: "janji_politik" }
 
-    badge   = Badge.find(badge_id)
-    reg_ids = registration_ids(receiver_id)
+    achieved_badge = AchievedBadge.find_by(badge_id: badge_id, user_id: receiver_id)
+    reg_ids        = registration_ids(receiver_id)
     if reg_ids.present?
       data          = {
-        badge: resource_badge(badge)
+        achieved_badge: resource_badge(achieved_badge)
       }
-      body          = "Selamat! Kamu mendapat badge #{badge.name} untuk partisipasimu dalam Janji Politik!"
+      body          = "Selamat! Kamu mendapat badge #{achieved_badge.badge.name}  untuk partisipasimu dalam Janji Politik!"
       @notification = { notification: {
         title: "Pantau Pemilu",
         body:  body
@@ -94,13 +94,13 @@ class BadgeService < NotifApplicationService
     #       body:  Selamat! Kamu mendapat badge  <badge_id> untuk partisipasimu dalam Tanya Interaksi!.
     #   - { notif_type: "badge", event_type: "tanya_interaksi" }
 
-    badge   = Badge.find(badge_id)
-    reg_ids = registration_ids(receiver_id)
+    achieved_badge = AchievedBadge.find_by(badge_id: badge_id, user_id: receiver_id)
+    reg_ids        = registration_ids(receiver_id)
     if reg_ids.present?
       data          = {
-        badge: resource_badge(badge)
+        achieved_badge: resource_badge(achieved_badge)
       }
-      body          = "Selamat! Kamu mendapat badge #{badge.name} untuk partisipasimu dalam Tanya Interaksi!"
+      body          = "Selamat! Kamu mendapat badge #{achieved_badge.badge.name}  untuk partisipasimu dalam Tanya Interaksi!"
       @notification = { notification: {
         title: "Pantau Pemilu",
         body:  body
@@ -116,13 +116,13 @@ class BadgeService < NotifApplicationService
     #       body:  Selamat! Kamu mendapat badge <badge_id> untuk partisipasimu dalam Lapor!.
     #   - { notif_type: "badge", event_type: "profile" }
 
-    badge   = Badge.find(badge_id)
-    reg_ids = registration_ids(receiver_id)
+    achieved_badge = AchievedBadge.find_by(badge_id: badge_id, user_id: receiver_id)
+    reg_ids        = registration_ids(receiver_id)
     if reg_ids.present?
       data          = {
-        badge: resource_badge(badge)
+        achieved_badge: resource_badge(achieved_badge)
       }
-      body          = "Selamat! Kamu mendapat badge #{badge.name} untuk  Kelengkapan Profile!"
+      body          = "Selamat! Kamu mendapat badge #{achieved_badge.badge.name}  untuk  Kelengkapan Profile!"
       @notification = { notification: {
         title: "Pantau Pemilu",
         body:  body
@@ -138,11 +138,11 @@ class BadgeService < NotifApplicationService
     #       body:  Selamat! Kamu mendapat badge <badge_id> untuk partisipasimu sebagai Relawan.
     #   - { notif_type: "badge", event_type: "relawan" }
 
-    badge   = Badge.find(badge_id)
-    reg_ids = registration_ids(receiver_id)
+    achieved_badge = AchievedBadge.find_by(badge_id: badge_id, user_id: receiver_id)
+    reg_ids        = registration_ids(receiver_id)
     if reg_ids.present?
       data          = {
-        badge: resource_badge(badge)
+        achieved_badge: resource_badge(achieved_badge)
       }
       body          = "Selamat! Kamu mendapat badge #{badge.id} untuk partisipasimu sebagai Relawan!"
       @notification = { notification: {
@@ -160,13 +160,13 @@ class BadgeService < NotifApplicationService
     #       body:  Selamat! Kamu mendapat badge <badge_id> untuk partisipasimu di Pantau Bersama!".
     #   - { notif_type: "badge", event_type: "pantau_bersama" }
 
-    badge   = Badge.find(badge_id)
-    reg_ids = registration_ids(receiver_id)
+    achieved_badge = AchievedBadge.find_by(badge_id: badge_id, user_id: receiver_id)
+    reg_ids        = registration_ids(receiver_id)
     if reg_ids.present?
       data          = {
-        badge: resource_badge(badge)
+        achieved_badge: resource_badge(achieved_badge)
       }
-      body          = "Selamat! Kamu mendapat badge #{badge.name} untuk partisipasimu di Pantau Bersama!"
+      body          = "Selamat! Kamu mendapat badge #{achieved_badge.badge.name}  untuk partisipasimu di Pantau Bersama!"
       @notification = { notification: {
         title: "Pantau Pemilu",
         body:  body
@@ -177,15 +177,19 @@ class BadgeService < NotifApplicationService
 
   private
 
-  def resource_badge badge
+  def resource_badge achieved_badge
+    badge = achieved_badge.badge
     {
-      id:         badge.id,
-      name:       badge.name,
-      code:       badge.code,
-      namespace:  badge.namespace,
-      position:   badge.position,
-      image:      badge.path_image,
-      image_gray: badge.path_image_gray,
+      achieved_id: achieved_badge.id,
+      badge:       {
+        id:         badge.id,
+        name:       badge.name,
+        code:       badge.code,
+        namespace:  badge.namespace,
+        position:   badge.position,
+        image:      badge.path_image,
+        image_gray: badge.path_image_gray,
+      }
     }
   end
 end

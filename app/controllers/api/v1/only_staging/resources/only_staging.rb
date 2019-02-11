@@ -45,7 +45,10 @@ class API::V1::OnlyStaging::Resources::OnlyStaging < API::V1::ApplicationResourc
       end
       oauth2
       post "badge" do
-        badge   = Badge.find_by(namespace: params.event_type)
+        badge_ids      = Badge.where(namespace: params.event_type).pluck(:id)
+        achieved_badge = AchievedBadge.where(badge_id: badge_ids, user_id: params[:receiver_id]).last
+        badge          = achieved_badge.badge
+
         results = if params[:notif_type].eql?("badge") && params[:event_type].eql?("tanya")
                     BadgeService.new.when_receive_badge_tanya(params[:receiver_id], badge.id)
                   elsif params[:notif_type].eql?("badge") && params[:event_type].eql?("kuis")
