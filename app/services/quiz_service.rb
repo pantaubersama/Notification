@@ -1,4 +1,4 @@
-class KuisService < NotifApplicationService
+class QuizService < NotifApplicationService
   def when_new_quiz_created(quiz_id)
     # - Jika ada quiz baru
     #   - [dikirimkan ke semua user panatu]
@@ -10,6 +10,11 @@ class KuisService < NotifApplicationService
     reg_ids = registration_ids("all")
     if reg_ids.present?
       data          = {
+        id:                   quiz.id,
+        title:                quiz.title,
+        description:          quiz.description,
+        image:                quiz.path_image,
+        quiz_questions_count: quiz.quiz_questions_count,
       }
       body          = "Hey, ada kuis baru #{quiz.title} di Minggu #{minggu_ke quiz.created_at} bulan #{bulan_name quiz.created_at.month}!_"
       @notification = { notification: {
