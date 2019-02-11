@@ -8,11 +8,13 @@ class QuizService < NotifApplicationService
 
     quiz          = Quiz.find(quiz_id)
     data          = {
-      id:                   quiz.id,
-      title:                quiz.title,
-      description:          quiz.description,
-      image:                quiz.path_image,
-      quiz_questions_count: quiz.quiz_questions_count,
+      quiz: {
+        id:                   quiz.id,
+        title:                quiz.title,
+        description:          quiz.description,
+        image:                quiz.path_image,
+        quiz_questions_count: quiz.quiz_questions_count,
+      }
     }
     body          = "Hey, ada kuis baru #{quiz.title} di Minggu #{minggu_ke quiz.created_at} bulan #{bulan_name quiz.created_at.month}!_"
     @notification = { notification: {
