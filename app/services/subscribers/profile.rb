@@ -27,6 +27,9 @@ module Subscribers
       elsif params[:notif_type].eql?("profile") && params[:event_type].eql?("cluster_invited")
         logger.info " --event_type: cluster_invited"
         ProfileService.new.when_invited_to_claster(params[:receiver_id], params[:user_action_id], params[:cluster_id])
+      elsif params[:notif_type].eql?("profile") && params[:event_type].eql?("cluster_invited_email_sent")
+        logger.info " --event_type: cluster_invited_email_sent"
+        ProfileService.new.when_invited_to_claster_email_sent(params[:receiver_id], params[:user_action_id], params[:cluster_id])
       end
       ack!
     end

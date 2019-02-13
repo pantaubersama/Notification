@@ -43,7 +43,7 @@ class ProfileService < NotifApplicationService
     #   - [dikirimkan ke user yang mengirimkan request]
     #       title: Pantau Pemilu
     #       body: Selamat! Permintaan Cluster  <cluster_name> sudah diterima. Sekarang kamu adalah admin cluster <cluster_name>.
-    #   - { notif_type: "profile", event_type: "request_claster_approved" }
+    #   - { notif_type: "profile", event_type: "claster_approved" }
 
     cluster = Cluster.find(cluster_id)
     reg_ids = registration_ids(receiver_id)
@@ -64,7 +64,7 @@ class ProfileService < NotifApplicationService
     #   - [dikirimkan ke user yang mengirimkan request]
     #       title: Pantau Pemilu
     #       body: Yah! Maaf, permintaan kamu untuk menjadi admin kali ini belum bisa dipenuhi. Tetap semangat dan terus berpartisipasi :)
-    #   - { notif_type: "profile", event_type: "request_claster_rejected" }
+    #   - { notif_type: "profile", event_type: "claster_rejected" }
 
     reg_ids = registration_ids(receiver_id)
     if reg_ids.present?
@@ -80,7 +80,7 @@ class ProfileService < NotifApplicationService
   end
 
   def when_invited_to_claster(receiver_id, user_action_id, cluster_id)
-    # - Jika di invite ke dalam cluster
+    # - Jika di invite ke dalam cluster sudah mengkonfirmasi via email
     #   - [dikirimkan ke user yang di invite]
     #       title: Pantau Pemilu
     #       body: Kamu telah dimasukkan di cluster <cluster_name> oleh <user_name>. Selamat berpartisipasi!
@@ -93,6 +93,28 @@ class ProfileService < NotifApplicationService
       data          = {
       }
       body          = "Kamu telah dimasukkan di cluster #{cluster.name} oleh #{user_action.full_name}. Selamat berpartisipasi!"
+      @notification = { notification: {
+        title: "Pantau Pemilu",
+        body:  body
+      } }
+      push("profile", "cluster_invited", reg_ids, data.merge(@notification), :using_ids)
+    end
+  end
+
+  def when_invited_to_claster_email_sent(receiver_id, user_action_id, cluster_id)
+    # - Jika di invite ke dalam cluster belum mengkonfirmasi via email
+    #   - [dikirimkan ke user yang di invite]
+    #       title: Pantau Pemilu
+    #       body: Kamu akan dimasukkan di cluster <cluster_name> oleh <user_name>. Cek email untuk mengkonfirmasi undangan. Selamat berpartisipasi!
+    #   - { notif_type: "profile", event_type: "cluster_invited" }
+
+    user_action = User.find(user_action_id)
+    cluster     = Cluster.find(cluster_id)
+    reg_ids     = registration_ids(receiver_id)
+    if reg_ids.present?
+      data          = {
+      }
+      body          = "Kamu akan dimasukkan di cluster #{cluster.name} oleh #{user_action.full_name}. Cek email untuk mengkonfirmasi undangan. Selamat berpartisipasi!"
       @notification = { notification: {
         title: "Pantau Pemilu",
         body:  body
