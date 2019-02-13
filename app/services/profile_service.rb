@@ -83,16 +83,16 @@ class ProfileService < NotifApplicationService
     # - Jika di invite ke dalam cluster sudah mengkonfirmasi via email
     #   - [dikirimkan ke user yang di invite]
     #       title: Pantau Pemilu
-    #       body: Kamu telah dimasukkan di cluster <cluster_name> oleh <user_name>. Selamat berpartisipasi!
+    #       body: Kamu telah dimasukkan di cluster <cluster_name>. Selamat berpartisipasi!
     #   - { notif_type: "profile", event_type: "cluster_invited" }
 
-    user_action = User.find(user_action_id)
+    # user_action = User.find(user_action_id)
     cluster     = Cluster.find(cluster_id)
     reg_ids     = registration_ids(receiver_id)
     if reg_ids.present?
       data          = {
       }
-      body          = "Kamu telah dimasukkan di cluster #{cluster.name} oleh #{user_action.full_name}. Selamat berpartisipasi!"
+      body          = "Kamu telah dimasukkan di cluster #{cluster.name}. Selamat berpartisipasi!"
       @notification = { notification: {
         title: "Pantau Pemilu",
         body:  body
