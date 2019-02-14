@@ -14,6 +14,9 @@ module Subscribers
       elsif params[:notif_type].eql?("question") && params[:event_type].eql?("upvote")
         logger.info " --event_type: upvote"
         QuestionService.new.when_receive_upvote(params[:question_id], params[:receiver_id], params[:user_action_id])
+      elsif params[:notif_type].eql?("question") && params[:event_type].eql?("add_to_folder")
+        logger.info " --event_type: add_to_folder"
+        QuestionService.new.when_add_to_folder(params[:question_id], params[:receiver_id])
       end
       logger.info "Subscribers::Question finished"
       ack!

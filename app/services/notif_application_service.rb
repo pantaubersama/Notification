@@ -3,7 +3,6 @@ class NotifApplicationService
 
   def initialize(resource = nil)
     @resource     = resource
-    @resource     = nil
     @payload      = {}
     @notification = {
       notification: {
@@ -11,6 +10,7 @@ class NotifApplicationService
         body:  "[Pantau] Body belum di tambahkan"
       }
     }
+    @results      = []
   end
 
   def push(notif_type = "", event_type = "", registration_ids = { "android" => [], "ios" => [] }, data = {}, broadcast_type)
@@ -74,13 +74,13 @@ class NotifApplicationService
         results = results.merge({ to: "/topics/android-#{notif_type}-#{event_type}" })
       end
       @payload[:payload] = data.merge({ notif_type: notif_type, event_type: event_type })
-      results           = results.merge(data: @payload)
-      options           = {
+      results            = results.merge(data: @payload)
+      options            = {
         priority: "high",
       }
-      response          = $fcm.push(results.merge(options))
-      print "#{response}"
-      @results = Hashie::Mash.new({ response: response.json, headers: response.headers })
+      response           = $fcm.push(results.merge(options))
+      print "#{response.header}"
+      @results << { response: response.json, app_type: :android }
     end
 
   end
@@ -98,13 +98,13 @@ class NotifApplicationService
         results = results.merge({ to: "/topics/ios-#{notif_type}-#{event_type}" })
       end
       @payload[:payload] = data.merge({ notif_type: notif_type, event_type: event_type })
-      results           = results.merge(data: @payload)
-      options           = {
+      results            = results.merge(data: @payload)
+      options            = {
         priority: "high",
       }
-      response          = $fcm.push(results.merge(options))
-      print "#{response}"
-      @results = Hashie::Mash.new({ response: response.json, headers: response.headers })
+      response           = $fcm.push(results.merge(options))
+      print "#{response.header}"
+      @results << {response: response.json, app_type: :ios }
     end
   end
 end

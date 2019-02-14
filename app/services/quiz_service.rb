@@ -1,4 +1,4 @@
-class KuisService < NotifApplicationService
+class QuizService < NotifApplicationService
   def when_new_quiz_created(quiz_id)
     # - Jika ada quiz baru
     #   - [dikirimkan ke semua user panatu]
@@ -6,18 +6,22 @@ class KuisService < NotifApplicationService
     #       body: Hey, ada kuis baru <quiz_title> di Minggu kedua bulan Februari!_
     #   - { notif_type: "quiz", event_type: "created_quiz" }
 
-    quiz    = Quiz.find(quiz_id)
-    reg_ids = registration_ids("all")
-    if reg_ids.present?
-      data          = {
+    quiz          = Quiz.find(quiz_id)
+    data          = {
+      quiz: {
+        id:                   quiz.id,
+        title:                quiz.title,
+        description:          quiz.description,
+        image:                quiz.path_image,
+        quiz_questions_count: quiz.quiz_questions_count,
       }
-      body          = "Hey, ada kuis baru #{quiz.title} di Minggu #{minggu_ke quiz.created_at} bulan #{bulan_name quiz.created_at.month}!_"
-      @notification = { notification: {
-        title: "Pantau Pemilu",
-        body:  body
-      } }
-      push("quiz", "quiz_created", reg_ids, data.merge(@notification), :using_topic)
-    end
+    }
+    body          = "Hey, ada kuis baru #{quiz.title} di Minggu #{minggu_ke quiz.created_at} bulan #{bulan_name quiz.created_at.month}!_"
+    @notification = { notification: {
+      title: "Pantau Pemilu",
+      body:  body
+    } }
+    push("quiz", "created_quiz", {}, data.merge(@notification), :using_topic)
   end
 
   private

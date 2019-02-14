@@ -30,9 +30,9 @@ module Subscribers
         logger.info " --event_type: tanya_interaksi"
         BadgeService.new.when_receive_badge_tanya_interaksi(params[:receiver_id], params[:badge_id])
 
-      elsif params[:notif_type].eql?("badge") && params[:event_type].eql?("badge")
+      elsif params[:notif_type].eql?("badge") && params[:event_type].eql?("profile")
         logger.info " --event_type: badge"
-        BadgeService.new.when_receive_badge_badge(params[:receiver_id], params[:badge_id])
+        BadgeService.new.when_receive_badge_profile(params[:receiver_id], params[:badge_id])
 
       elsif params[:notif_type].eql?("badge") && params[:event_type].eql?("relawan")
         logger.info " --event_type: relawan"
