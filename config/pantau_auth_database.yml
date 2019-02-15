@@ -7,6 +7,7 @@ default: &default
   password: <%= ENV["PANTAU_AUTH_DATABASE_PASSWORD"] %>
   host: <%= ENV['PANTAU_AUTH_DATABASE_HOSTNAME'] %>
   port: <%= ENV['PANTAU_AUTH_DATABASE_PORT'].to_i %>
+  timeout: <%= ENV.fetch("PANTAU_AUTH_TIMEOUT") { 5000 } %>
 
 development:
   <<: *default
