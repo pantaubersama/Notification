@@ -144,7 +144,7 @@ class BadgeService < NotifApplicationService
       data          = {
         achieved_badge: resource_badge(achieved_badge)
       }
-      body          = "Selamat! Kamu mendapat badge #{badge.id} untuk partisipasimu sebagai Relawan!"
+      body          = "Selamat! Kamu mendapat badge #{achieved_badge.badge.name} untuk partisipasimu sebagai Relawan!"
       @notification = { notification: {
         title: "Pantau Pemilu",
         body:  body
