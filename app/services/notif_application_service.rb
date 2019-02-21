@@ -74,6 +74,7 @@ class NotifApplicationService
         results = results.merge({ to: "/topics/android-#{notif_type}-#{event_type}" })
       end
       @payload[:payload] = data.merge({ notif_type: notif_type, event_type: event_type })
+      @payload           = @payload.merge({ notif_type: notif_type, event_type: event_type })
       results            = results.merge(data: @payload)
       options            = {
         priority: "high",
@@ -98,13 +99,14 @@ class NotifApplicationService
         results = results.merge({ to: "/topics/ios-#{notif_type}-#{event_type}" })
       end
       @payload[:payload] = data.merge({ notif_type: notif_type, event_type: event_type })
+      @payload           = @payload.merge({ notif_type: notif_type, event_type: event_type })
       results            = results.merge(data: @payload)
       options            = {
         priority: "high",
       }
       response           = $fcm.push(results.merge(options))
       print "#{response.header}"
-      @results << {response: response.json, app_type: :ios }
+      @results << { response: response.json, app_type: :ios }
     end
   end
 end
