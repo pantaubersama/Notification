@@ -20,7 +20,7 @@ class BroadcastsService < NotifApplicationService
 
     body          = "#{pemilu_broadcast.description}"
     @notification = { notification: {
-      title: "Pantau Pemilu #{pemilu_broadcast.event_type.to_s.titleize}",
+      title: "Pantau Bersama #{pemilu_broadcast.event_type.to_s.titleize}",
       body:  body
     } }
     push("broadcasts", "activity", {}, data.merge(@notification), :using_topic)

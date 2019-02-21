@@ -14,7 +14,7 @@ class BadgeService < NotifApplicationService
       }
       body          = "Selamat! Kamu mendapat badge #{achieved_badge.badge.name}  sebagai apresiasi partisipasi dalam Tanya."
       @notification = { notification: {
-        title: "Pantau Pemilu",
+        title: "Pantau Bersama",
         body:  body
       } }
       push("badge", "tanya", reg_ids, data.merge(@notification), :using_ids)
@@ -36,7 +36,7 @@ class BadgeService < NotifApplicationService
       }
       body          = "Selamat! Kamu mendapatkan badge #{achieved_badge.badge.name}  atas partisipasimu dalam mengikuti kuis pantau."
       @notification = { notification: {
-        title: "Pantau Pemilu",
+        title: "Pantau Bersama",
         body:  body
       } }
       push("badge", "kuis", reg_ids, data.merge(@notification), :using_ids)
@@ -58,7 +58,7 @@ class BadgeService < NotifApplicationService
       }
       body          = "Selamat! Kamu mendapat badge #{achieved_badge.badge.name}  untuk partisipasimu dalam Lapor!"
       @notification = { notification: {
-        title: "Pantau Pemilu",
+        title: "Pantau Bersama",
         body:  body
       } }
       push("badge", "lapor", reg_ids, data.merge(@notification), :using_ids)
@@ -80,7 +80,7 @@ class BadgeService < NotifApplicationService
       }
       body          = "Selamat! Kamu mendapat badge #{achieved_badge.badge.name}  untuk partisipasimu dalam Janji Politik!"
       @notification = { notification: {
-        title: "Pantau Pemilu",
+        title: "Pantau Bersama",
         body:  body
       } }
       push("badge", "janji_politik", reg_ids, data.merge(@notification), :using_ids)
@@ -102,7 +102,7 @@ class BadgeService < NotifApplicationService
       }
       body          = "Selamat! Kamu mendapat badge #{achieved_badge.badge.name}  untuk partisipasimu dalam Tanya Interaksi!"
       @notification = { notification: {
-        title: "Pantau Pemilu",
+        title: "Pantau Bersama",
         body:  body
       } }
       push("badge", "tanya_interaksi", reg_ids, data.merge(@notification), :using_ids)
@@ -124,7 +124,7 @@ class BadgeService < NotifApplicationService
       }
       body          = "Selamat! Kamu mendapat badge #{achieved_badge.badge.name}  untuk  Kelengkapan Profile!"
       @notification = { notification: {
-        title: "Pantau Pemilu",
+        title: "Pantau Bersama",
         body:  body
       } }
       push("badge", "profile", reg_ids, data.merge(@notification), :using_ids)
@@ -146,7 +146,7 @@ class BadgeService < NotifApplicationService
       }
       body          = "Selamat! Kamu mendapat badge #{achieved_badge.badge.name} untuk partisipasimu sebagai Relawan!"
       @notification = { notification: {
-        title: "Pantau Pemilu",
+        title: "Pantau Bersama",
         body:  body
       } }
       push("badge", "relawan", reg_ids, data.merge(@notification), :using_ids)
@@ -168,7 +168,7 @@ class BadgeService < NotifApplicationService
       }
       body          = "Selamat! Kamu mendapat badge #{achieved_badge.badge.name}  untuk partisipasimu di Pantau Bersama!"
       @notification = { notification: {
-        title: "Pantau Pemilu",
+        title: "Pantau Bersama",
         body:  body
       } }
       push("badge", "pantau_bersama", reg_ids, data.merge(@notification), :using_ids)

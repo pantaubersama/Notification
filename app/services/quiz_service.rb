@@ -18,7 +18,7 @@ class QuizService < NotifApplicationService
     }
     body          = "Hey, ada kuis baru #{quiz.title} di Minggu #{minggu_ke quiz.created_at} bulan #{bulan_name quiz.created_at.month}!_"
     @notification = { notification: {
-      title: "Pantau Pemilu",
+      title: "Pantau Bersama",
       body:  body
     } }
     push("quiz", "created_quiz", {}, data.merge(@notification), :using_topic)
