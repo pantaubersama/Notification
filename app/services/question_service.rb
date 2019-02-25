@@ -18,7 +18,7 @@ class QuestionService < NotifApplicationService
       }
       body          = "Hore! partisipasimu dalam tanya diupvote #{count} kali"
       @notification = { notification: {
-        title: "Pantau Pemilu",
+        title: "Pantau Bersama",
         body:  body
       } }
       push("question", "upvote_report", reg_ids, data.merge(@notification), :using_ids)
@@ -45,7 +45,7 @@ class QuestionService < NotifApplicationService
       }
       body          = "Yup! Pertanyaan kamu mendapat Upvote dari #{user_action.full_name}."
       @notification = { notification: {
-        title: "Pantau Pemilu",
+        title: "Pantau Bersama",
         body:  body
       } }
       push("question", "upvote", reg_ids, data.merge(@notification), :using_ids)
@@ -70,7 +70,7 @@ class QuestionService < NotifApplicationService
       }
       body          = "Pertanyaan kamu terpilih untuk diarsip dan dikirimkan ke kedua kandidat. Nantikan jawabannya di Quiz Kata Kandidat!"
       @notification = { notification: {
-        title: "Pantau Pemilu",
+        title: "Pantau Bersama",
         body:  body
       } }
       push("question", "add_to_folder", reg_ids, data.merge(@notification), :using_ids)

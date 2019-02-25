@@ -83,13 +83,14 @@ class NotifApplicationService
       print "#{response.header}"
       @results << { response: response.json, app_type: :android }
     end
-
+  rescue StandardError => errors
+    print "---> #{errors}"
+    @results << { response: { message: :errors }, app_type: :android }
   end
 
   def build_ios_paylod(notif_type, event_type, registration_ids, data, broadcast_type)
     if [:using_topic, :using_ids].include?(broadcast_type)
       results = { content_available: true }.merge(@notification)
-
       # topic or ids
       if broadcast_type.eql?(:using_ids)
         if registration_ids["ios"].present?
@@ -108,5 +109,8 @@ class NotifApplicationService
       print "#{response.header}"
       @results << { response: response.json, app_type: :ios }
     end
+  rescue StandardError => errors
+    print "---> #{errors}"
+    @results << { response: { message: :errors }, app_type: :ios }
   end
 end

@@ -14,7 +14,7 @@ class LaporService < NotifApplicationService
   #     }
   #     body          = "#{user_action.full_name} menyukai post laporan kamu dengan judul #{lapor.title}."
   #     @notification = { notification: {
-  #       title: "Pantau Pemilu",
+  #       title: "Pantau Bersama",
   #       body:  body
   #     } }
   #     push("lapor", "liked", reg_ids, data.merge(@notification))
@@ -34,7 +34,7 @@ class LaporService < NotifApplicationService
   #     }
   #     body          = "Psst! Laporan kamu _Lapor Surat Suara Rusak_ mendapat #{count} likes!"
   #     @notification = { notification: {
-  #       title: "Pantau Pemilu",
+  #       title: "Pantau Bersama",
   #       body:  body
   #     } }
   #     push("lapor", "liked_report", reg_ids, data.merge(@notification))
@@ -55,7 +55,7 @@ class LaporService < NotifApplicationService
   #     }
   #     body          = "#{count} Komentar baru di pos Lapor #{lapor.title}"
   #     @notification = { notification: {
-  #       title: "Pantau Pemilu",
+  #       title: "Pantau Bersama",
   #       body:  body
   #     } }
   #     push("lapor", "commented_report", reg_ids, data.merge(@notification))
@@ -78,7 +78,7 @@ class LaporService < NotifApplicationService
   #     }
   #     body          = "#{user_action.full_name} memberikan komentar di pos Lapor #{lapor.title}: #{comment.body}"
   #     @notification = { notification: {
-  #       title: "Pantau Pemilu",
+  #       title: "Pantau Bersama",
   #       body:  body
   #     } }
   #     push("lapor", "commented", reg_ids, data.merge(@notification))
@@ -100,7 +100,7 @@ class LaporService < NotifApplicationService
   #     }
   #     body          = "#{user_action.fullname} menambahkan data pendukung di pos Lapor #{lapor.title}."
   #     @notification = { notification: {
-  #       title: "Pantau Pemilu",
+  #       title: "Pantau Bersama",
   #       body:  body
   #     } }
   #     push("lapor", "ditambahkan_data_pendukung", reg_ids, data.merge(@notification))
@@ -122,7 +122,7 @@ class LaporService < NotifApplicationService
   #     }
   #     body          = "#{user_action.fullname} menambahkan sidenote di pos Lapor #{lapor.title}."
   #     @notification = { notification: {
-  #       title: "Pantau Pemilu",
+  #       title: "Pantau Bersama",
   #       body:  body
   #     } }
   #     push("lapor", "ditambahkan_side_note", reg_ids, data.merge(@notification))

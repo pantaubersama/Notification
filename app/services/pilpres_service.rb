@@ -9,7 +9,7 @@ class PilpresService < NotifApplicationService
     data          = {}
     body          = "#{count} Tweet baru di Linimasa. Jangan ketinggalan informasinya!"
     @notification = { notification: {
-      title: "Pantau Pemilu",
+      title: "Pantau Bersama",
       body:  body
     } }
     push("feed", "report", {}, data.merge(@notification), :using_topic)

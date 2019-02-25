@@ -11,7 +11,7 @@ class ProfileService < NotifApplicationService
       data          = {}
       body          = "Ups, akun kamu gagal melakukan verifikasi. Mohon coba lagi ya! Atau lebih lanjut hubungi Rumah Pantau di contact@pantaubersama.com"
       @notification = { notification: {
-        title: "Pantau Pemilu",
+        title: "Pantau Bersama",
         body:  body
       } }
       push("profile", "gagal_verifikasi", reg_ids, data.merge(@notification), :using_ids)
@@ -31,7 +31,7 @@ class ProfileService < NotifApplicationService
       }
       body          = "Yeay! Akun kamu berhasil terverifikasi. Yuk mulai rayakan partisipasi pesta demokrasi."
       @notification = { notification: {
-        title: "Pantau Pemilu",
+        title: "Pantau Bersama",
         body:  body
       } }
       push("profile", "berhasil_verifikasi", reg_ids, data.merge(@notification), :using_ids)
@@ -52,7 +52,7 @@ class ProfileService < NotifApplicationService
       }
       body          = "Selamat! Permintaan Cluster #{cluster.name} sudah diterima. Sekarang kamu adalah admin cluster #{cluster.name}."
       @notification = { notification: {
-        title: "Pantau Pemilu",
+        title: "Pantau Bersama",
         body:  body
       } }
       push("profile", "claster_approved", reg_ids, data.merge(@notification), :using_ids)
@@ -72,7 +72,7 @@ class ProfileService < NotifApplicationService
       }
       body          = "Yah! Maaf, permintaan kamu untuk menjadi admin kali ini belum bisa dipenuhi. Tetap semangat dan terus berpartisipasi :)"
       @notification = { notification: {
-        title: "Pantau Pemilu",
+        title: "Pantau Bersama",
         body:  body
       } }
       push("profile", "claster_rejected", reg_ids, data.merge(@notification), :using_ids)
@@ -94,7 +94,7 @@ class ProfileService < NotifApplicationService
       }
       body          = "Kamu telah dimasukkan di cluster #{cluster.name}. Selamat berpartisipasi!"
       @notification = { notification: {
-        title: "Pantau Pemilu",
+        title: "Pantau Bersama",
         body:  body
       } }
       push("profile", "cluster_invited", reg_ids, data.merge(@notification), :using_ids)
@@ -116,7 +116,7 @@ class ProfileService < NotifApplicationService
       }
       body          = "Kamu akan dimasukkan di cluster #{cluster.name} oleh #{user_action.full_name}. Cek email untuk mengkonfirmasi undangan. Selamat berpartisipasi!"
       @notification = { notification: {
-        title: "Pantau Pemilu",
+        title: "Pantau Bersama",
         body:  body
       } }
       push("profile", "cluster_invited", reg_ids, data.merge(@notification), :using_ids)
