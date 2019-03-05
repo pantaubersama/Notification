@@ -14,7 +14,7 @@ set :whenever_roles, :app
 set :sneakers_roles, :app
 set :sneakers_processes, 1
 set :sneakers_run_config, -> { true }
-set :sneakers_workers, ["Subscribers::JanjiPolitik", "Subscribers::Pilpres", "Subscribers::Profile", "Subscribers::Question", "Subscribers::Quiz", "Subscribers::Badge"]
+set :sneakers_workers, ["Subscribers::JanjiPolitik", "Subscribers::Pilpres", "Subscribers::Profile", "Subscribers::Question", "Subscribers::Quiz", "Subscribers::Badge", "Subscribers::WsWordService"]
 
 server "52.77.101.168", user: "ubuntu", roles: %w{web db}
 server "13.228.240.205", user: "ubuntu", roles: %w{app}

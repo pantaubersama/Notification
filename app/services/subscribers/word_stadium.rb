@@ -54,13 +54,13 @@ module Subscribers
           # {receiver_id: uuid, challenge_id: uuid, }
           # _Nama Akun_ menyukai debat antara kamu melawan _Nama Akun_
         elsif params[:notif_type].eql?("challenge") && params[:event_type].eql?("comment")
-          # {receiver_id: uuid, challenge_id: uuid, }
-          # comment
+          # {challenge_id: uuid, attack_id: uuid, }
+          WsWordService.new.comment(params[:comment_id])
         elsif params[:notif_type].eql?("challenge") && params[:event_type].eql?("attack")
-          # {receiver_id: uuid, challenge_id: uuid, }
-          # attack
+          # {challenge_id: uuid, attack_id: uuid, }
+          WsWordService.new.attack(params[:attack_id])
         end
-        logger.info "Subscribers::Pilpres finished"
+        logger.info "Subscribers::WordStadium finished"
       end
       ack!
     end

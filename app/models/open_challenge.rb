@@ -1,0 +1,2 @@
+class OpenChallenge < Challenge
+end
