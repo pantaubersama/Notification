@@ -50,9 +50,6 @@ class WsWordService < WsApplicationService
         body:         comment.body,
         type:         "Comment",
         challenge_id: comment.challenge_id,
-        read_time:    comment.read_time,
-        time_spent:   comment.time_spent,
-        time_left:    comment.time_left,
         created_at:   comment.created_at.iso8601,
         author:       {
           id:        author.id,
