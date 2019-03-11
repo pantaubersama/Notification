@@ -18,7 +18,7 @@ class WsWordService < WsApplicationService
         read_time:    attack.read_time,
         time_spent:   attack.time_spent,
         time_left:    attack.time_left,
-        created_at:   attack.created_at.iso8601,
+        created_at:   attack.created_at.iso8601(6),
         author:       {
           id:        author.id,
           email:     author.email,
@@ -46,16 +46,18 @@ class WsWordService < WsApplicationService
 
     comment       = Comment.find(comment_id)
     author        = User.find(comment.user_id)
+    audience      = Audience.find_by(user_id: attack.user_id, challenge_id: attack.challenge_id)
     data          = {
       word: {
         id:           comment.id,
         body:         comment.body,
         type:         "Comment",
         challenge_id: comment.challenge_id,
-        created_at:   comment.created_at.iso8601,
+        created_at:   comment.created_at.iso8601(6),
         author:       {
           id:        author.id,
           email:     author.email,
+          role:      audience.role,
           full_name: author.full_name,
           username:  author.username,
           avatar:    author.path_avatar,
