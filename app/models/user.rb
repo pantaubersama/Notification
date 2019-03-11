@@ -4,6 +4,7 @@ class User < PantauAuthApplicationRecord
 
   def path_avatar
     {
+      url:              avatar.url,
       thumbnail:        avatar.thumbnail.url,
       thumbnail_square: avatar.thumbnail_square.url,
       medium:           avatar.medium.url,

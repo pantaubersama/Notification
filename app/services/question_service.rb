@@ -13,7 +13,7 @@ class QuestionService < NotifApplicationService
         question: {
           id:         question.id,
           body:       question.body,
-          created_at: question.created_at.iso8601(6)
+          created_at: question.created_at.iso8601(3)
         }
       }
       body          = "Hore! partisipasimu dalam tanya diupvote #{count} kali"
@@ -40,7 +40,7 @@ class QuestionService < NotifApplicationService
         question: {
           id:         question.id,
           body:       question.body,
-          created_at: question.created_at.iso8601(6),
+          created_at: question.created_at.iso8601(3),
           upvote_by:  {
             id:        user_action.id,
             email:     user_action.email,
@@ -72,7 +72,7 @@ class QuestionService < NotifApplicationService
         question: {
           id:         question.id,
           body:       question.body,
-          created_at: question.created_at.iso8601(6)
+          created_at: question.created_at.iso8601(3)
         }
       }
       body          = "Pertanyaan kamu terpilih untuk diarsip dan dikirimkan ke kedua kandidat. Nantikan jawabannya di Quiz Kata Kandidat!"

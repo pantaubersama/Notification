@@ -18,7 +18,7 @@ class WsWordService < WsApplicationService
         read_time:    attack.read_time,
         time_spent:   attack.time_spent,
         time_left:    attack.time_left,
-        created_at:   attack.created_at.iso8601(6),
+        created_at:   attack.created_at.iso8601(3),
         author:       {
           id:        author.id,
           email:     author.email,
@@ -53,7 +53,7 @@ class WsWordService < WsApplicationService
         body:         comment.body,
         type:         "Comment",
         challenge_id: comment.challenge_id,
-        created_at:   comment.created_at.iso8601(6),
+        created_at:   comment.created_at.iso8601(3),
         author:       {
           id:        author.id,
           email:     author.email,
