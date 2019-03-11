@@ -46,7 +46,7 @@ class WsWordService < WsApplicationService
 
     comment       = Comment.find(comment_id)
     author        = User.find(comment.user_id)
-    audience      = Audience.find_by(user_id: attack.user_id, challenge_id: attack.challenge_id)
+    audience      = Audience.find_by(user_id: comment.user_id, challenge_id: comment.challenge_id)
     data          = {
       word: {
         id:           comment.id,
