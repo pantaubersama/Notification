@@ -8,6 +8,7 @@ class WsWordService < WsApplicationService
 
     attack        = Attack.find(attack_id)
     author        = User.find(attack.user_id)
+    audience      = Audience.find_by(user_id: attack.user_id, challenge_id: attack.challenge_id)
     data          = {
       word: {
         id:           attack.id,
@@ -21,6 +22,7 @@ class WsWordService < WsApplicationService
         author:       {
           id:        author.id,
           email:     author.email,
+          role:      audience.role,
           full_name: author.full_name,
           username:  author.username,
           avatar:    author.path_avatar,
@@ -32,7 +34,7 @@ class WsWordService < WsApplicationService
       title: "Wordstadium",
       body:  body
     } }
-    push("challenge", "attack", {}, data.merge(@notification), :using_topic, "attack-#{attack.challenge_id}")
+    push("challenge", "attack", {}, data.merge(@notification), :using_topic, "fighter-#{attack.challenge_id}")
   end
 
   def comment(comment_id)
@@ -65,6 +67,6 @@ class WsWordService < WsApplicationService
       title: "Wordstadium",
       body:  body
     } }
-    push("challenge", "comment", {}, data.merge(@notification), :using_topic, "comment-#{comment.challenge_id}")
+    push("challenge", "comment", {}, data.merge(@notification), :using_topic, "audience-#{comment.challenge_id}")
   end
 end
