@@ -1,7 +1,7 @@
 class Attack < Word
   def time_left
     time = challenge.time_limit - Attack.where(challenge_id: challenge.id, user_id: user_id).pluck(:time_spent).sum
-    time.round(1)
+    time <= 0.0 ? 0.0 : time.round(1)
   end
 
   def is_closing_statement
