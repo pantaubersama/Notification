@@ -71,4 +71,26 @@ class WsWordService < WsApplicationService
     } }
     push("challenge", "comment", {}, data.merge(@notification), :using_topic, "audience-#{comment.challenge_id}")
   end
+
+  def clap(word_id, challenge_id, clap_count)
+    # - Jika ada clap
+    #   - { notif_type: "challenge", event_type: "attack" }
+    word          = Word.find(word_id)
+    data          = {
+      clap: {
+        word:         {
+          id:   word.id,
+          body: word.body,
+        },
+        challenge_id: challenge_id,
+        clap_count:   clap_count
+      }
+    }
+    body          = "#{comment.body}"
+    @notification = { notification: {
+      title: "Wordstadium",
+      body:  "Kamu dapat #{clap_count} clap di #{word.type} : `#{ body}`"
+    } }
+    push("challenge", "clap", {}, data.merge(@notification), :using_topic, "clap-#{word.challenge_id}")
+  end
 end

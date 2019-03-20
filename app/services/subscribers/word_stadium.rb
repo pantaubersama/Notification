@@ -59,6 +59,9 @@ module Subscribers
         elsif params[:notif_type].eql?("challenge") && params[:event_type].eql?("attack")
           # {challenge_id: uuid, attack_id: uuid, }
           WsWordService.new.attack(params[:attack_id])
+        elsif params[:notif_type].eql?("challenge") && params[:event_type].eql?("clap")
+          # {challenge_id: uuid, attack_id: uuid, }
+          WsWordService.new.clap(params[:word_id], params[:challenge_id], params[:clap_count])
         end
         logger.info "Subscribers::WordStadium finished"
       end
