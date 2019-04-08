@@ -7,7 +7,7 @@ class NotifApplicationService
     @notification = {
       notification: {
         title: "Pantau Bersama",
-        body:  "[Pantau] Body belum di tambahkan"
+        body:  "[Pantau] Bersama Kita pantau"
       }
     }
     @results      = []
