@@ -1,4 +1,4 @@
-class NotifApplicationService
+class WsApplicationService
   attr_accessor :resource, :notification
 
   def initialize(resource = nil)
@@ -6,17 +6,16 @@ class NotifApplicationService
     @payload      = {}
     @notification = {
       notification: {
-        title: "Pantau Bersama",
-        body:  "[Pantau] Bersama Kita pantau"
+        title: "Wordstadium",
+        body:  "[Challenge] Kick from ... "
       }
     }
     @results      = []
   end
 
-  def push(notif_type = "", event_type = "", registration_ids = { "android" => [], "ios" => [] }, data = {}, broadcast_type)
-    build_android_paylod(notif_type, event_type, registration_ids, data, broadcast_type)
-    build_ios_paylod(notif_type, event_type, registration_ids, data, broadcast_type)
-    build_notification_log(notif_type, event_type, registration_ids, @payload, false, broadcast_type)
+  def push(notif_type = "", event_type = "", registration_ids = { "android" => [], "ios" => [] }, data = {}, broadcast_type, topic_target)
+    build_android_paylod(notif_type, event_type, registration_ids, data, broadcast_type, topic_target)
+    build_ios_paylod(notif_type, event_type, registration_ids, data, broadcast_type, topic_target)
     @results
   end
 
@@ -32,37 +31,7 @@ class NotifApplicationService
 
   private
 
-  def build_notification_log(notif_type, event_type, registration_ids, payload, is_action = false, broadcast_type = :using_topic)
-    results = []
-    if broadcast_type.eql?(:using_topic)
-      results << {
-        title:          @notification[:notification][:title],
-        body:           @notification[:notification][:body],
-        user_id:        nil,
-        notif_type:     notif_type,
-        event_type:     event_type,
-        broadcast_type: broadcast_type,
-        data:           payload,
-        is_action:      is_action
-      }
-    elsif broadcast_type.eql?(:using_ids)
-      (registration_ids["ios"].pluck(:user_id) + registration_ids["android"].pluck(:user_id)).uniq.each do |uid|
-        results << {
-          title:          @notification[:notification][:title],
-          body:           @notification[:notification][:body],
-          user_id:        uid,
-          notif_type:     notif_type,
-          event_type:     event_type,
-          broadcast_type: broadcast_type,
-          data:           payload,
-          is_action:      is_action
-        }
-      end
-    end
-    NotificationLog.create!(results)
-  end
-
-  def build_android_paylod(notif_type, event_type, registration_ids, data, broadcast_type)
+  def build_android_paylod(notif_type, event_type, registration_ids, data, broadcast_type, topic_target)
     if [:using_topic, :using_ids].include?(broadcast_type)
       results = { content_available: true }
       # topic or ids
@@ -71,7 +40,7 @@ class NotifApplicationService
           results = results.merge({ registration_ids: (registration_ids["android"]).pluck(:content) })
         end
       elsif broadcast_type.eql?(:using_topic)
-        results = results.merge({ to: "/topics/android-#{notif_type}-#{event_type}" })
+        results = results.merge({ to: "/topics/android-#{topic_target}" })
       end
       @payload[:payload] = data.merge({ notif_type: notif_type, event_type: event_type })
       @payload           = @payload.merge({ notif_type: notif_type, event_type: event_type })
@@ -88,7 +57,7 @@ class NotifApplicationService
     @results << { response: { message: :errors }, app_type: :android }
   end
 
-  def build_ios_paylod(notif_type, event_type, registration_ids, data, broadcast_type)
+  def build_ios_paylod(notif_type, event_type, registration_ids, data, broadcast_type, topic_target)
     if [:using_topic, :using_ids].include?(broadcast_type)
       results = { content_available: true }.merge(@notification)
       # topic or ids
@@ -97,7 +66,7 @@ class NotifApplicationService
           results = results.merge({ registration_ids: (registration_ids["ios"]).pluck(:content) })
         end
       elsif broadcast_type.eql?(:using_topic)
-        results = results.merge({ to: "/topics/ios-#{notif_type}-#{event_type}" })
+        results = results.merge({ to: "/topics/ios-#{topic_target}" })
       end
       @payload[:payload] = data.merge({ notif_type: notif_type, event_type: event_type })
       @payload           = @payload.merge({ notif_type: notif_type, event_type: event_type })

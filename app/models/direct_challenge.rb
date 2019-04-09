@@ -1,0 +1,2 @@
+class DirectChallenge < Challenge
+end

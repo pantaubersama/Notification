@@ -13,7 +13,7 @@ class QuestionService < NotifApplicationService
         question: {
           id:         question.id,
           body:       question.body,
-          created_at: question.created_at.iso8601
+          created_at: question.created_at.iso8601(3)
         }
       }
       body          = "Hore! partisipasimu dalam tanya diupvote #{count} kali"
@@ -40,7 +40,13 @@ class QuestionService < NotifApplicationService
         question: {
           id:         question.id,
           body:       question.body,
-          created_at: question.created_at.iso8601
+          created_at: question.created_at.iso8601(3),
+          upvote_by:  {
+            id:        user_action.id,
+            email:     user_action.email,
+            full_name: user_action.full_name,
+            avatar:    user_action.path_avatar,
+          }
         }
       }
       body          = "Yup! Pertanyaan kamu mendapat Upvote dari #{user_action.full_name}."
@@ -51,6 +57,7 @@ class QuestionService < NotifApplicationService
       push("question", "upvote", reg_ids, data.merge(@notification), :using_ids)
     end
   end
+
   def when_add_to_folder(question_id, receiver_id)
     # - Jika di masukan ke folder
     #   - [dikirimkan ke user yang bersangkutan]
@@ -58,14 +65,14 @@ class QuestionService < NotifApplicationService
     #       body: Pertanyaan kamu terpilih untuk diarsip dan dikirimkan ke kedua kandidat. Nantikan jawabannya di Quiz Kata Kandidat!.
     #   - { notif_type: "question", event_type: "add_to_folder" }
 
-    question    = Question.find(question_id)
-    reg_ids     = registration_ids(receiver_id)
+    question = Question.find(question_id)
+    reg_ids  = registration_ids(receiver_id)
     if reg_ids.present?
       data          = {
         question: {
           id:         question.id,
           body:       question.body,
-          created_at: question.created_at.iso8601
+          created_at: question.created_at.iso8601(3)
         }
       }
       body          = "Pertanyaan kamu terpilih untuk diarsip dan dikirimkan ke kedua kandidat. Nantikan jawabannya di Quiz Kata Kandidat!"

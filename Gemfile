@@ -52,6 +52,9 @@ group :development do
   gem 'capistrano3-unicorn'
   gem 'capistrano-rvm'
   gem 'capistrano-sneakers', github: "yunanhelmy/capistrano-sneakers", branch: "release/1.2.1"
+  # net ssh issue
+  gem "bcrypt_pbkdf", ">= 1.0", "< 2.0"
+  gem "ed25519", ">= 1.2", "< 2.0"
 end
 
 ###doc [4] set up faker

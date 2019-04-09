@@ -1,0 +1,22 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("WORDSTADIUM_RAILS_MAX_THREADS") { 5 } %>
+  database: <%= ENV["WORDSTADIUM_DATABASE_NAME"] %>
+  username: <%= ENV["WORDSTADIUM_DATABASE_USERNAME"] %>
+  password: <%= ENV["WORDSTADIUM_DATABASE_PASSWORD"] %>
+  host: <%= ENV['WORDSTADIUM_DATABASE_HOSTNAME'] %>
+  port: <%= ENV['WORDSTADIUM_DATABASE_PORT'].to_i %>
+  timeout: <%= ENV.fetch("WORDSTADIUM_DATABASE_TIMEOUT") { 5000 }.to_i %>
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+staging:
+  <<: *default
+
+production:
+  <<: *default
