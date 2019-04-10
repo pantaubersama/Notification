@@ -3,7 +3,7 @@ class WsInfoService < NotifApplicationService
   ##------------------------------------------------------------------
   # "Yeay! Kamu berhasil membuat tantangan. Bagi atau promosikan tantanganmu!"
   def challenge_created(challenger = {}, opponent = {}, challenge = {})
-    reg_challenger_ids = registration_ids(challenger["id"])
+    reg_challenger_ids = registration_ids(challenger["user_id"])
     if reg_challenger_ids.present?
       data          = challenge
       body          = "Yeay! Kamu berhasil membuat tantangan. Bagi atau promosikan tantanganmu!"
@@ -21,7 +21,7 @@ class WsInfoService < NotifApplicationService
   # "Uups, #{opponent["name"]} menolak tantanganmu."
   # from opponent -> challenger
   def dc_rejected(challenger = {}, opponent = {}, challenge = {})
-    reg_challenger_ids = registration_ids(challenger["id"])
+    reg_challenger_ids = registration_ids(challenger["user_id"])
     if reg_challenger_ids.present?
       data          = challenge
       body          = "Uups, #{opponent["name"]} menolak tantanganmu."
@@ -36,7 +36,7 @@ class WsInfoService < NotifApplicationService
   # "#{ challenger["name"]} mengirimkan tantangan ke kamu. Konfirmasi tantangan?"
   # from challenger -> opponent
   def ask_as_opponent_in_dc(challenger = {}, opponent = {}, challenge = {})
-    reg_opponent_ids = registration_ids(opponent["id"])
+    reg_opponent_ids = registration_ids(opponent["user_id"])
     if reg_opponent_ids.present?
       data          = challenge
       body          = "#{ challenger["name"]} mengirimkan tantangan ke kamu. Konfirmasi tantangan?"
@@ -51,7 +51,7 @@ class WsInfoService < NotifApplicationService
   # Yeay! #{opponent["name"]} menerima tantanganmu. Debat akan dimulai 10 hari dari sekarang. Brace yourself!"
   # from opponent -> challenger
   def dc_approved(challenger = {}, opponent = {}, challenge = {})
-    reg_challenger_ids = registration_ids(challenger["id"])
+    reg_challenger_ids = registration_ids(challenger["user_id"])
     if reg_challenger_ids.present?
       data          = challenge
       body          = "Yeay! #{opponent["name"]} menerima tantanganmu. Debat akan dimulai #{challenge["waiting_time"]} hari dari sekarang. Brace yourself!"
@@ -66,7 +66,7 @@ class WsInfoService < NotifApplicationService
   # "Tantangan _Nama Akun_ belum kamu konfirmasi. Konfirmasi tantangan?"
   # from system -> opponent
   def dc_no_response(challenger = {}, opponent = {}, challenge = {})
-    reg_opponent_ids = registration_ids(opponent["id"])
+    reg_opponent_ids = registration_ids(opponent["user_id"])
     if reg_opponent_ids.present?
       data          = challenge
       body          = "Tantangan #{challenger["name"]} belum kamu konfirmasi. Konfirmasi tantangan?"
@@ -83,7 +83,7 @@ class WsInfoService < NotifApplicationService
   # "#{opponent["name"]} menerima tantanganmu. Konfirmasi sebagai lawan debat?"
   # from opponent -> challenger
   def oc_joined(challenger = {}, opponent = {}, challenge = {})
-    reg_challenger_ids = registration_ids(challenger["id"])
+    reg_challenger_ids = registration_ids(challenger["user_id"])
     if reg_challenger_ids.present?
       data          = challenge
       body          = "#{opponent["name"]} menerima tantanganmu. Konfirmasi sebagai lawan debat?"
@@ -98,7 +98,7 @@ class WsInfoService < NotifApplicationService
   # "Waduh, belum ada yang menerima tantanganmu. Bagi atau promosikan tantanganmu!"
   # from system -> challenger
   def oc_no_response(challenger = {}, opponent = {}, challenge = {})
-    reg_challenger_ids = registration_ids(challenger["id"])
+    reg_challenger_ids = registration_ids(challenger["user_id"])
     if reg_challenger_ids.present?
       data          = challenge
       body          = "Waduh, belum ada yang menerima tantanganmu. Bagi atau promosikan tantanganmu!"
@@ -113,7 +113,7 @@ class WsInfoService < NotifApplicationService
   # "Ada _Jumlah tantangan_ tantangan masih menuggu lawan. Terima tantangan?"
   # from system -> user_all
   def oc_no_opponents(challenger = {}, opponent = {}, challenge = {})
-    reg_challenger_ids = registration_ids(challenger["id"])
+    reg_challenger_ids = registration_ids(challenger["user_id"])
     if reg_challenger_ids.present?
       data          = challenge
       body          = "Ada #{challenge["waiting_opponent"]} tantangan masih menuggu lawan. Terima tantangan?"
@@ -128,7 +128,7 @@ class WsInfoService < NotifApplicationService
   # "Yeay! _Nama Akun_ konfirmasi kamu sebagai lawan debat. Debat akan dimulai 10 hari dari sekarang. Brace yourself!"
   # from challenger -> opponent
   def opponent_confirmed_in_oc(challenger = {}, opponent = {}, challenge = {})
-    reg_opponent_ids = registration_ids(challenger["id"])
+    reg_opponent_ids = registration_ids(challenger["user_id"])
     if reg_opponent_ids.present?
       data          = challenge
       body          = "Yeay! #{challenger["name"]} konfirmasi kamu sebagai lawan debat. Debat akan dimulai #{challenge["waiting_time"]} hari dari sekarang. Brace yourself!"
@@ -158,7 +158,7 @@ class WsInfoService < NotifApplicationService
   # "Kamu telah konfirmasi #{opponent["name"]} sebagai lawan debat. Debat akan dimulai #{challenge["waiting_time"]} hari dari sekarang. Brace yourself!"
   # from challenger -> me
   def challenger_confirmed_in_oc(challenger = {}, opponent = {}, challenge = {})
-    reg_challenger_ids = registration_ids(challenger["id"])
+    reg_challenger_ids = registration_ids(challenger["user_id"])
     if reg_challenger_ids.present?
       data          = challenge
       body          = "Kamu telah konfirmasi #{opponent["name"]} sebagai lawan debat. Debat akan dimulai #{challenge["waiting_time"]} hari dari sekarang. Brace yourself!"
