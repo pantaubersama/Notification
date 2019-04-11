@@ -16,6 +16,7 @@ class WsApplicationService
   def push(notif_type = "", event_type = "", registration_ids = { "android" => [], "ios" => [] }, data = {}, broadcast_type, topic_target)
     build_android_paylod(notif_type, event_type, registration_ids, data, broadcast_type, topic_target)
     build_ios_paylod(notif_type, event_type, registration_ids, data, broadcast_type, topic_target)
+    #build_notification_log(notif_type, event_type, registration_ids, @payload, false, broadcast_type)
     @results
   end
 
@@ -30,7 +31,35 @@ class WsApplicationService
   end
 
   private
-
+  def build_notification_log(notif_type, event_type, registration_ids, payload, is_action = false, broadcast_type = :using_topic)
+    results = []
+    if broadcast_type.eql?(:using_topic)
+      results << {
+        title:          @notification[:notification][:title],
+        body:           @notification[:notification][:body],
+        user_id:        nil,
+        notif_type:     notif_type,
+        event_type:     event_type,
+        broadcast_type: broadcast_type,
+        data:           payload,
+        is_action:      is_action
+      }
+    elsif broadcast_type.eql?(:using_ids)
+      (registration_ids["ios"].pluck(:user_id) + registration_ids["android"].pluck(:user_id)).uniq.each do |uid|
+        results << {
+          title:          @notification[:notification][:title],
+          body:           @notification[:notification][:body],
+          user_id:        uid,
+          notif_type:     notif_type,
+          event_type:     event_type,
+          broadcast_type: broadcast_type,
+          data:           payload,
+          is_action:      is_action
+        }
+      end
+    end
+    NotificationLog.create!(results)
+  end
   def build_android_paylod(notif_type, event_type, registration_ids, data, broadcast_type, topic_target)
     if [:using_topic, :using_ids].include?(broadcast_type)
       results = { content_available: true }
