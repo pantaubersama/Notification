@@ -15,7 +15,7 @@ class API::V1::Dashboard::Notifications::Resources::Notifications < API::V1::App
     paginate per_page: Pagy::VARS[:items], max_per_page: Pagy::VARS[:max_per_page]
     oauth2
     get do
-      resources = paginate(NotificationLog.where("data like ?", "%#{params.title}%"))
+      resources = paginate(NotificationLog.where("data like ?", "%#{params.title}%").order("created_at DESC"))
       present :notifications, resources, with: API::V1::Dashboard::Notifications::Entities::Notification
       present_metas resources
     end

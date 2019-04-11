@@ -29,7 +29,7 @@ class API::V1::Dashboard::Broadcasts::Resources::Broadcasts < API::V1::Applicati
     oauth2
     get do
       authorize_admin!
-      resources = paginate(PemiluBroadcast.where("title like ?", "%#{params.title}%"))
+      resources = paginate(PemiluBroadcast.where("title like ?", "%#{params.title}%").order("created_at DESC"))
       present :notifications, resources, with: API::V1::Dashboard::Broadcasts::Entities::Broadcast
       present_metas resources
     end
